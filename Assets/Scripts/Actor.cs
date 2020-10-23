@@ -7,10 +7,11 @@ public class Actor : MonoBehaviour
 {
 
     private string name;
-    private int HP;
+    private int totalHP, currentHP;
     private float speed = 5f;
     Transform transform;//获取人物位置信息
     Rigidbody2D rigidbody;//人物刚体模型
+    Animator animator;//控制动画相关
     Attack attack;
 
     public void setMove(float direction)//设置移动，方向由弧度制表示
@@ -18,6 +19,9 @@ public class Actor : MonoBehaviour
         Vector2 moveDirection = new Vector2(1, 0);//移动方向，默认朝右
         moveDirection.x = (float)Math.Cos(direction);
         moveDirection.y = (float)Math.Sin(direction);
+        animator.SetFloat("Look X", moveDirection.x);
+        animator.SetFloat("Look Y", moveDirection.y);
+        animator.SetFloat("Speed", moveDirection.magnitude);
         transform.Translate(moveDirection * speed * Time.deltaTime);//使人物朝移动方向每帧移动speed的长度
     }
 
@@ -37,11 +41,12 @@ public class Actor : MonoBehaviour
         //获取组件
         transform = GetComponent<Transform>();
         rigidbody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        setMove(0);
     }
 }
