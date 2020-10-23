@@ -5,11 +5,16 @@ using UnityEngine;
 
 public class Actor : MonoBehaviour
 {
-
+    //人物数据相关
     private string name;
     private int totalHP, currentHP;
     private float speed = 3f;
-    public float test = 0;
+    bool isMoving = true;
+
+    //音频相关
+    private AudioSource audioSource;
+    public AudioClip Footsteps;
+
     Transform transform;//获取人物位置信息
     Rigidbody2D rigidbody;//人物刚体模型
     Animator animator;//控制动画相关
@@ -17,19 +22,23 @@ public class Actor : MonoBehaviour
 
     public void setMove(float direction)//设置移动，方向由弧度制表示
     {
-        animator.SetBool("isMoving", true);
         Vector2 moveDirection = new Vector2(1, 0);//移动方向，默认朝右
         moveDirection.x = (float)Math.Cos(direction);
         moveDirection.y = (float)Math.Sin(direction);
+        //移动动画相关
+        animator.SetBool("isMoving", true);
         animator.SetFloat("Look X", moveDirection.x);
         animator.SetFloat("Look Y", moveDirection.y);
-        animator.SetFloat("Speed", moveDirection.magnitude);
+        //移动音频相关
+        if (!audioSource.isPlaying)
+            audioSource.Play();
         transform.Translate(moveDirection * speed * Time.deltaTime);//使人物朝移动方向每帧移动speed的长度
     }
 
-    public void setStand(int action)//设置人物静置
+    public void setStand()//设置人物静置
     {
         animator.SetBool("isMoving", false);
+        audioSource.Pause();
     }
 
     private void encounterAttack(Attack attack)//发出攻击
@@ -44,11 +53,20 @@ public class Actor : MonoBehaviour
         transform = GetComponent<Transform>();
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (isMoving)
+        {
+            setMove(0);
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                setStand();
+                isMoving = false;
+            }
+        }
     }
 }
