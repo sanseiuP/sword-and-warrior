@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Tilemap_Room_Ground
+  - Tilemap_Room_GroundDetails
+  - Tilemap_Room_OnTheGround
+  - Tilemap_Room_BridgeSign
   layers:
   - Default
   - TransparentFX
