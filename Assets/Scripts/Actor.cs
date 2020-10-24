@@ -8,8 +8,8 @@ public class Actor : MonoBehaviour
     //人物数据相关
     private string name;
     private int totalHP, currentHP;
-    private float speed = 3f;
-    bool isMoving = true;
+    public float speed = 3f;
+    private bool isMoving = false;
 
     //音频相关
     private AudioSource audioSource;
@@ -22,6 +22,7 @@ public class Actor : MonoBehaviour
 
     public void setMove(float direction)//设置移动，方向由弧度制表示
     {
+        isMoving = true;
         Vector2 moveDirection = new Vector2(1, 0);//移动方向，默认朝右
         moveDirection.x = (float)Math.Cos(direction);
         moveDirection.y = (float)Math.Sin(direction);
@@ -32,7 +33,9 @@ public class Actor : MonoBehaviour
         //移动音频相关
         if (!audioSource.isPlaying)
             audioSource.Play();
-        transform.Translate(moveDirection * speed * Time.deltaTime);//使人物朝移动方向每帧移动speed的长度
+        Vector2 position = rigidbody.position;
+        position += moveDirection * speed * Time.deltaTime;
+        rigidbody.MovePosition(position);//使人物朝移动方向每帧移动speed的长度
     }
 
     public void setStand()//设置人物静置
@@ -58,15 +61,10 @@ public class Actor : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {/*
+    {
         if (isMoving)
-        {
-            setMove(0);
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                setStand();
-                isMoving = false;
-            }
-        }*/
+            isMoving = false;
+        else
+            setStand();
     }
 }
