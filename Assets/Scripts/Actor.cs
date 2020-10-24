@@ -58,7 +58,7 @@ public class Actor : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {/*
         if (isMoving)
         {
             setMove(0);
@@ -67,6 +67,6 @@ public class Actor : MonoBehaviour
                 setStand();
                 isMoving = false;
             }
-        }
+        }*/
     }
 }

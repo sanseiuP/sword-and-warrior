@@ -34,4 +34,8 @@ MonoBehaviour:
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 1
   m_ColliderType: 1
-  m_Sprites: []
+  m_Sprites:
+  - {fileID: 5267299006604962263, guid: 9c183474e18121d4fb0d52fc0300104f, type: 3}
+  - {fileID: 4970542278654363809, guid: 9c183474e18121d4fb0d52fc0300104f, type: 3}
+  - {fileID: 419417112390348951, guid: 9c183474e18121d4fb0d52fc0300104f, type: 3}
+  - {fileID: 955146356262610749, guid: 9c183474e18121d4fb0d52fc0300104f, type: 3}
