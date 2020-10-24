@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: tall2_2
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 5191056128269659658, guid: 4e4934ab6ba0cc24e96a13ec8f4d0354,
+  m_Sprite: {fileID: 4970542278654363809, guid: 9c183474e18121d4fb0d52fc0300104f,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
