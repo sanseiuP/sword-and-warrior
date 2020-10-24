@@ -10,6 +10,7 @@ public class Actor : MonoBehaviour
     private int totalHP, currentHP;
     public float speed = 3f;
     private bool isMoving = false;
+    Vector2 moveDirection = new Vector2(1, 0);//移动方向，默认朝右
 
     //音频相关
     private AudioSource audioSource;
@@ -19,11 +20,11 @@ public class Actor : MonoBehaviour
     Rigidbody2D rigidbody;//人物刚体模型
     Animator animator;//控制动画相关
     Attack attack;
+    public GameObject bulletObj;
 
     public void setMove(float direction)//设置移动，方向由弧度制表示
     {
         isMoving = true;
-        Vector2 moveDirection = new Vector2(1, 0);//移动方向，默认朝右
         moveDirection.x = (float)Math.Cos(direction);
         moveDirection.y = (float)Math.Sin(direction);
         //移动动画相关
@@ -44,9 +45,14 @@ public class Actor : MonoBehaviour
         audioSource.Pause();
     }
 
-    private void encounterAttack(Attack attack)//发出攻击
+    public void encounterAttack()//发出攻击
     {
-
+        GameObject bullet = Instantiate(bulletObj, rigidbody.position + Vector2.up * 0.5f, Quaternion.identity);
+        Attack bulletController = bullet.GetComponent<Attack>();
+        if (bulletController != null)
+        {
+            bulletController.Shoot(moveDirection);
+        }
     }
 
     // Start is called before the first frame update

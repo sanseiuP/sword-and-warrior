@@ -11,6 +11,7 @@ public class simpleInput : MonoBehaviour
     }
 
     public Actor player;
+    Attack attack;
 
     // Update is called once per frame
     void Update()
@@ -27,5 +28,9 @@ public class simpleInput : MonoBehaviour
         if(Input.GetKey(KeyCode.S)) {
             player.setMove(-3.1415926f/2);
 		}
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            player.encounterAttack();
+        }
     }
 }
