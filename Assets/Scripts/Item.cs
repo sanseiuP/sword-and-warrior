@@ -14,6 +14,7 @@ public class Item :MonoBehaviour
       public void drop(Vector2 position)
       {
 
+
       }
 
 }
