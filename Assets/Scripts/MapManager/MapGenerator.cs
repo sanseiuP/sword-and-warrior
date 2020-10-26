@@ -16,6 +16,8 @@ public class MapGenerator : MonoBehaviour
 
     public Tile_ID_Convertion Convertor;
 
+    public int mapSizeX, mapSizeY;
+
     public void setReferences() {
         for (int i = 0; i < gameObject.transform.childCount; i++) {
             if (gameObject.transform.GetChild(i).tag == "Tilemap_Room_Ground")
@@ -50,6 +52,9 @@ public class MapGenerator : MonoBehaviour
 
         int index = UnityEngine.Random.Range(0, allRoomsData.Length);
         paintRoom(0,0,allRoomsData[index]);
+
+        mapSizeX = allRoomsData[index].sizeW * 16;
+        mapSizeY = allRoomsData[index].sizeH * 16;
 	}
 
     private void paintRoom(int x, int y, RoomData data) {
