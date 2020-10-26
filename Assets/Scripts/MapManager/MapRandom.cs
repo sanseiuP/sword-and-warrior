@@ -27,7 +27,7 @@ public struct V6
 }
 
 
-public class MapGenerator : MonoBehaviour
+public class MapRandom
 {
   
 
