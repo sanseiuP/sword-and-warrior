@@ -19,10 +19,9 @@ using UnityEngine;
         }
     }
 
-public struct V6
+public struct V3
 {
-    public int room1, block1, door1,
-        room2, block2, door2;
+    public int x, y, no;
 
 }
 
@@ -33,11 +32,12 @@ public class MapRandom
 
     public List<Room> rooms = new List<Room>();
     public node[,] map = new node[100, 100];
-    public List<V6> exitPair = new List<V6>();
+    public List<V3> exit = new List<V3>();
 
     int roomNum = 0;
     int length = 0;
     int width = 0;
+    int nowRoomNum = 0;
     int[,] direction = new int[4, 2] { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };
 
     public int AddRoom(int modleState)//  添加房间，modleState:房间形状，返回房间索引
@@ -55,14 +55,16 @@ public class MapRandom
    }
 
 
-   private void Init(node[] a)
+   private void Init(node[] a,int[,] roomPos)
     {
+        nowRoomNum = 0;
         for (int i = 0; i < length; i++)
             for (int j = 0; j < width; j++)
             {
                 a[i * width + j].SetValue(i, j);
                 map[i, j].x = -1;
                 map[i, j].y = -1;
+                roomPos[i, j] = -1;
             }
 
     }
@@ -93,7 +95,7 @@ public class MapRandom
 
             int nx = px + id % 3;
             int ny = py + id / 3;
-            if (nx < 0 || nx >= length || ny < 0 || ny >= width || map[nx, ny].x > 0) return false;            
+            if (nx < 0 || nx >= length || ny < 0 || ny >= width || map[nx, ny].x >= 0) return false;            
 
             for (int i = 0; i < 4; i++)
             {
@@ -113,17 +115,19 @@ public class MapRandom
             }
 
         }
-
+        if (nowRoomNum == 0) suc = true;
         return suc;
 
 
     }
 
-    private void Put_Room(List<V6> exitPair,int[,] roomPos,int idRoom, node p)
+    private void Put_Room(List<V3> exit,int[,] roomPos,int idRoom, node p)
     {
         Room room = rooms[idRoom];
 
-        int[] door = new int[6];
+        int[] door = new int[3];
+        int xx = 0;
+        int yy = 0;
         int px = p.x;
         int py = p.y;
 
@@ -146,92 +150,44 @@ public class MapRandom
                 int otherBoardId = map[dx,dy].y;
                 Block otherBlock = rooms[otherRoomId].blocks[otherBoardId];
                 int key = block.DoorKey(i);
-                for (int j = 0; j <= 5; j++) door[j] = -1;
+                for (int j = 0; j <= 2; j++) door[j] = -1;
 
-                if (i == 0)
+                if (i == 0 || i == 1) 
                 {
-                    if ((key >> 2) == 1) {
-                        door[0] = 0;
-                        door[1] = 8;
-                    }
-                    if (((key >> 1) & 1) == 1) {
-                        door[2] = 1;
-                        door[3] = 7;
-                    }
-                    if ((key & 1) == 1)
-                    {
-                        door[4] = 2;
-                        door[5] = 6;
-                    }
-
-                }else if (i==1)
-                {
-                    if ((key >> 2) == 1)
-                    {
-                        door[0] = 8;
-                        door[1] = 0;
-                    }
-                    if (((key >> 1) & 1) == 1)
-                    {
-                        door[2] = 7;
-                        door[3] = 1;
-                    }
-                    if ((key & 1) == 1)
-                    {
-                        door[4] = 6;
-                        door[5] = 2;
-                    }
+                    if ((key >> 2) == 1) door[0] = 2;
+                  
+                    if (((key >> 1) & 1) == 1) door[1] = 1;
+                   
+                    if ((key & 1) == 1)  door[2] = 0;
 
                 }
-                else if (i == 2)
+                else if (i == 2 || i == 3) 
                 {
-                    if ((key >> 2) == 1)
-                    {
-                        door[0] = 3;
-                        door[1] = 11;
-                    }
-                    if (((key >> 1) & 1) == 1)
-                    {
-                        door[2] = 4;
-                        door[3] = 10;
-                    }
-                    if ((key & 1) == 1)
-                    {
-                        door[4] = 5;
-                        door[5] = 9;
-                    }
+                    if ((key >> 2) == 1) door[0] = 3;
+
+                    if (((key >> 1) & 1) == 1) door[1] = 4;
+
+                    if ((key & 1) == 1) door[2] = 5;
 
                 }
-                else if (i == 3)
-                {
-                    if ((key >> 2) == 1)
-                    {
-                        door[0] = 11;
-                        door[1] = 3;
-                    }
-                    if (((key >> 1) & 1) == 1)
-                    {
-                        door[2] = 10;
-                        door[3] = 4;
-                    }
-                    if ((key & 1) == 1)
-                    {
-                        door[4] = 9;
-                        door[5] = 5;
-                    }
 
+                if (i == 0 || i == 3) {
+                    xx = nx;
+                    yy = ny;
+                }else if (i == 1 || i == 2)
+                {
+                    xx = dx;
+                    yy = dy;
                 }
-                 
-                for(int j = 0; j < 5; j += 2) if (door[j] >= 0 && door[j + 1] >= 0)
+
+
+                for(int j = 0; j < 3; j++) if (door[j] >= 0)
                     {
-                        V6 ans;
-                        ans.room1 = idRoom;
-                        ans.room2 = otherRoomId;
-                        ans.block1 = id;
-                        ans.block2 = otherBoardId;
-                        ans.door1 = door[j];
-                        ans.door2 = door[j + 1];
-                        exitPair.Add(ans);
+                        V3 ans;
+                        ans.x = xx;
+                        ans.y = yy;
+                        ans.no = door[j];
+                        exit.Add(ans);                     
                     }
 
 
@@ -254,20 +210,21 @@ public class MapRandom
 
     public int [,] GetMap(int len,int wid,int area)//，在长，宽范围内生成大地图，返回二维数组，0为空，表示房间信息。
     {
-        exitPair.Clear();
+        exit.Clear();
         length = len;
         width = wid;
         int totArea = length * width;      
         int[,] roomPos = new int[length, width];
         node[] pos = new node[totArea];        
 
-        Init(pos);
+        Init(pos,roomPos);
         Rand_pos(pos, totArea);
 
 
-        int areaNow = 0;
-        while (areaNow <= area)
+        int areaNow = 0;     
+        while (areaNow < area)
         {
+           
             int idRoom = UnityEngine.Random.Range(0, roomNum);
             Rand_pos(pos, totArea);
 
@@ -275,8 +232,11 @@ public class MapRandom
             {
                 if (Check(idRoom, pos[i])) 
                 {
-                    Put_Room(exitPair,roomPos,idRoom, pos[i]);
+                    nowRoomNum++;
+                    Put_Room(exit,roomPos,idRoom, pos[i]);
                     areaNow += rooms[idRoom].area;
+                    break;
+                    
                 }
             }
 
@@ -286,9 +246,9 @@ public class MapRandom
                
     }
 
-    public List<V6> GetExitPair()
+    public List<V3> GetExit()
     {
-        return exitPair;
+        return exit;
     }
     
 
