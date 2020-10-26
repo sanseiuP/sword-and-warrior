@@ -5,8 +5,8 @@ using UnityEngine;
 public class Attack : MonoBehaviour
 {
     private Transform transform;
-    private float speed;
-    private float life;
+    private float speed = 500;
+    private float life = 2f;
     Rigidbody2D rigidbody;//子弹/剑的刚体模型
 
     void OnCollisionEnter2D(Collision2D other)//攻击与外界的碰撞检测
@@ -17,6 +17,11 @@ public class Attack : MonoBehaviour
         {
 
         }
+    }
+
+    public void Shoot(Vector2 shootDirection)
+    {
+        rigidbody.AddForce(shootDirection * speed);
     }
 
     // Start is called before the first frame update

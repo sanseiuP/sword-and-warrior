@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class testScript : MonoBehaviour
 {
-    int count = 5;
+    int count = 50;
     
     // Start is called before the first frame update
     void Start()
@@ -18,7 +18,7 @@ public class testScript : MonoBehaviour
         count --;
         if (count == 0) {
             GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
-            count = 5;
+            count = 50;
             }
     }
 }

@@ -8,21 +8,24 @@ public class Actor : MonoBehaviour
     //人物数据相关
     private string name;
     private int totalHP, currentHP;
-    private float speed = 3f;
-    bool isMoving = true;
+    public float speed = 3f;
+    private bool isMoving = false;
+    Vector2 moveDirection = new Vector2(1, 0);//移动方向，默认朝右
 
     //音频相关
     private AudioSource audioSource;
     public AudioClip Footsteps;
 
+
     Transform transform;//获取人物位置信息
     Rigidbody2D rigidbody;//人物刚体模型
     Animator animator;//控制动画相关
     Attack attack;
+    public GameObject bulletObj;
 
     public void setMove(float direction)//设置移动，方向由弧度制表示
     {
-        Vector2 moveDirection = new Vector2(1, 0);//移动方向，默认朝右
+        isMoving = true;
         moveDirection.x = (float)Math.Cos(direction);
         moveDirection.y = (float)Math.Sin(direction);
         //移动动画相关
@@ -32,7 +35,9 @@ public class Actor : MonoBehaviour
         //移动音频相关
         if (!audioSource.isPlaying)
             audioSource.Play();
-        transform.Translate(moveDirection * speed * Time.deltaTime);//使人物朝移动方向每帧移动speed的长度
+        Vector2 position = rigidbody.position;
+        position += moveDirection * speed * Time.deltaTime;
+        rigidbody.MovePosition(position);//使人物朝移动方向每帧移动speed的长度
     }
 
     public void setStand()//设置人物静置
@@ -41,9 +46,14 @@ public class Actor : MonoBehaviour
         audioSource.Pause();
     }
 
-    private void encounterAttack(Attack attack)//发出攻击
+    public void encounterAttack()//发出攻击
     {
-
+        GameObject bullet = Instantiate(bulletObj, rigidbody.position + Vector2.up * 0.5f, Quaternion.identity);
+        Attack bulletController = bullet.GetComponent<Attack>();
+        if (bulletController != null)
+        {
+            bulletController.Shoot(moveDirection);
+        }
     }
 
     // Start is called before the first frame update
@@ -60,13 +70,8 @@ public class Actor : MonoBehaviour
     void Update()
     {
         if (isMoving)
-        {
-            setMove(0);
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                setStand();
-                isMoving = false;
-            }
-        }
+            isMoving = false;
+        else
+            setStand();
     }
 }
