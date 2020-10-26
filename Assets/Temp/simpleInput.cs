@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class simpleInput : MonoBehaviour
 {
-    
+    /*
+    以下内容保留
+
+
+
     public Actor player=new Actor();
     Attack attack;
     static Command command=new Command();
@@ -29,4 +33,61 @@ public class simpleInput : MonoBehaviour
         if (player!=null&&command!=null) command.move(player);
         
     }
+    */
+    // Start is called before the first frame update
+
+
+    void Start()
+    {
+        
+    }
+
+    public Actor player;
+    Attack attack;
+
+    // Update is called once per frame
+    void Update()
+    {
+        int move_direction=InputManager.getInstance().getMoveInput();
+        switch (move_direction)
+        {
+            case 0b0000:
+            case 0b0101:
+            case 0b1010:
+            case 0b1111:
+                break;
+            case 0b0001:
+            case 0b1011:
+                player.setMove(0);
+                break;
+            case 0b0010:
+            case 0b0111:
+                player.setMove(-3.1415926f/2);
+                break;
+            case 0b0011:
+                player.setMove(-3.1415926f/4);
+                break;
+            case 0b0100:
+            case 0b1110:
+                player.setMove(-3.1415926f);
+                break;
+            case 0b0110:
+                player.setMove(-3.1415926f*3/4);
+                break;
+            case 0b1000:
+            case 0b1101:
+                player.setMove(3.1415926f/2);
+                break;
+            case 0b1001:
+                player.setMove(3.1415926f/4);
+                break;
+            case 0b1100:
+                player.setMove(3.1415926f*3/4);
+                break;            
+            default:
+                break;
+        }
+    }
+
+
 }
