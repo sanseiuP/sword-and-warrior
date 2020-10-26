@@ -8,11 +8,12 @@ public class Item :MonoBehaviour
 
       public void GenerateAttack(Vector2 position)
       {
-            
+
       }
 
       public void drop(Vector2 position)
       {
+
 
       }
 

@@ -4,16 +4,25 @@ using UnityEngine;
 
 public class InteractEntityGenerator :MonoBehaviour
 {
-    //这里应该是用dictionary？
+    private static InteractEntityGenerator instance=null; //单例模式
+
+    private InteractEntityGenerator(){}
+
+    public static InteractEntityGenerator getInstance()
+    {
+        if (instance==null) instance=new InteractEntityGenerator();
+        return instance;
+    }
+
     public Dictionary<string,InteractEntity> prototype = new Dictionary<string,InteractEntity>();
 
     public void addPrototype(string name, InteractEntity pt)
     {
-
+        prototype.Add(name,pt);
     }
 
-    public void generate(string name)
+    public InteractEntity generate(string name)
     {
-        
+        return prototype[name];
     }
 }
