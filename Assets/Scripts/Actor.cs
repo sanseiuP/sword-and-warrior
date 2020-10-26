@@ -16,6 +16,7 @@ public class Actor : MonoBehaviour
     private AudioSource audioSource;
     public AudioClip Footsteps;
 
+
     Transform transform;//获取人物位置信息
     Rigidbody2D rigidbody;//人物刚体模型
     Animator animator;//控制动画相关
