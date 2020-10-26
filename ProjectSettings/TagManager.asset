@@ -8,6 +8,7 @@ TagManager:
   - Tilemap_Room_GroundDetails
   - Tilemap_Room_OnTheGround
   - Tilemap_Room_BridgeSign
+  - Tilemap_Room_RegionSign
   layers:
   - Default
   - TransparentFX
