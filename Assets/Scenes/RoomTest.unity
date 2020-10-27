@@ -4604,5 +4604,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: warrior0_22
       objectReference: {fileID: 0}
+    - target: {fileID: 6869549986490697100, guid: 853a5ba507bf8dd4298dcc07d461c98a,
+        type: 3}
+      propertyPath: m_AngularDrag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6869549986490697100, guid: 853a5ba507bf8dd4298dcc07d461c98a,
+        type: 3}
+      propertyPath: m_UseAutoMass
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6869549986490697100, guid: 853a5ba507bf8dd4298dcc07d461c98a,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6869549986490697100, guid: 853a5ba507bf8dd4298dcc07d461c98a,
+        type: 3}
+      propertyPath: m_LinearDrag
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 853a5ba507bf8dd4298dcc07d461c98a, type: 3}

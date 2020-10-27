@@ -5,6 +5,7 @@ using UnityEngine;
 //暂时将所有函数都设置为public void
 public class Command : MonoBehaviour
 {
+   
     public void move(Actor player) //不用传进移动方向direction，由getMoveInput()函数逐帧获取move_direction即可移动
     {
         int move_direction=InputManager.getInstance().getMoveInput();
@@ -53,9 +54,9 @@ public class Command : MonoBehaviour
 
     }
 
-    public void attack(Actor player)
+    public void Attack(Actor player)
     {
-        player.encounterAttack();
+
     }
 
     public void switchWeapon()
