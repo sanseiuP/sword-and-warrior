@@ -54,7 +54,7 @@ public class SetBackground : MonoBehaviour
 	private void setCameraBounds() {
 		boundBottom = 0;
 		boundLeft = 0;
-		boundW = 16;
+		boundW = 32;
 		boundH = 32;
 	}
 

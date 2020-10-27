@@ -16,7 +16,7 @@ public struct RoomData {
     public int[] ground;
     public int[] groundDetails;
     public int[] onTheGround;
-    /*桥的位置，每个单位区域都可以选择12个桥的位点，对所有区域的所有位点的自由分量序列化
+    /*桥的位置，每个单位区域都可以选择12个桥的位点，记录每个位点桥的深度，从1开始
     * 区域以行主序，位点从最左侧top出口开始顺时针编号，得到单元(i,j)的第m号出口索引为
     * (i*sizeW + j) * 12 + m */
     public int[]  bridgePositions;
@@ -162,43 +162,43 @@ public class RoomDataGenerator : MonoBehaviour
         //调查顶部和底部出口,遍历每一行
         for (int k = baseY; k < baseY + 16; k ++) {
             if (map_bridgeSign.GetTile(new Vector3Int(baseX+1,k,0)) == tile_bridgeSign_top) { 
-                data.bridgePositions[baseIndex+0] = k;
+                data.bridgePositions[baseIndex+0] = baseY + 16 - k;
                 }
             if (map_bridgeSign.GetTile(new Vector3Int(baseX+6,k,0)) == tile_bridgeSign_top){
-                data.bridgePositions[baseIndex+1] = k;
+                data.bridgePositions[baseIndex+1] = baseY + 16 - k;
                 }
             if (map_bridgeSign.GetTile(new Vector3Int(baseX+11,k,0)) == tile_bridgeSign_top){ 
-                data.bridgePositions[baseIndex+2] = k;
+                data.bridgePositions[baseIndex+2] = baseY + 16 - k;
                 }
             if (map_bridgeSign.GetTile(new Vector3Int(baseX+4,k,0)) == tile_bridgeSign_bottom){ 
-                data.bridgePositions[baseIndex+8] = k;
+                data.bridgePositions[baseIndex+8] = k - baseY+1;
                 }
             if (map_bridgeSign.GetTile(new Vector3Int(baseX+9,k,0)) == tile_bridgeSign_bottom){
-                data.bridgePositions[baseIndex+7] = k;
+                data.bridgePositions[baseIndex+7] = k - baseY+1;
                 }
             if (map_bridgeSign.GetTile(new Vector3Int(baseX+14,k,0)) == tile_bridgeSign_bottom){
-                data.bridgePositions[baseIndex+6] = k;
+                data.bridgePositions[baseIndex+6] = k - baseY+1;
                 }
 		}
         //调查左侧和右侧出口,遍历每一列
         for (int k = baseX; k < baseX + 16; k ++) {
             if (map_bridgeSign.GetTile(new Vector3Int(k,baseY+1,0)) == tile_bridgeSign_left){ 
-                data.bridgePositions[baseIndex+9] = k;
+                data.bridgePositions[baseIndex+9] = k - baseX+1;
                 }
             if (map_bridgeSign.GetTile(new Vector3Int(k,baseY+6,0)) == tile_bridgeSign_left){ 
-                data.bridgePositions[baseIndex+10] = k;
+                data.bridgePositions[baseIndex+10] = k - baseX+1;
                 }
             if (map_bridgeSign.GetTile(new Vector3Int(k,baseY+11,0)) == tile_bridgeSign_left){ 
-                data.bridgePositions[baseIndex+11] = k;
+                data.bridgePositions[baseIndex+11] = k - baseX+1;
                 }
             if (map_bridgeSign.GetTile(new Vector3Int(k,baseY+4,0)) == tile_bridgeSign_right){ 
-                data.bridgePositions[baseIndex+5] = k;
+                data.bridgePositions[baseIndex+5] =  baseX + 16 - k;
                 }
             if (map_bridgeSign.GetTile(new Vector3Int(k,baseY+9,0)) == tile_bridgeSign_right){ 
-                data.bridgePositions[baseIndex+4] = k;
+                data.bridgePositions[baseIndex+4] = baseX + 16 - k;
                 }
             if (map_bridgeSign.GetTile(new Vector3Int(k,baseY+14,0)) == tile_bridgeSign_right){ 
-                data.bridgePositions[baseIndex+3] = k;
+                data.bridgePositions[baseIndex+3] = baseX + 16 - k;
                 }
 		}
 

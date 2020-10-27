@@ -44,7 +44,7 @@ public class MapGenerator : MonoBehaviour
      */
     private int mapSizeX, mapSizeY; //地图尺寸
     private int[] roomIndex; //房间在layout中的id
-    private ArrayList doors; //所有的门
+    private ArrayList doors = new ArrayList(); //所有的门
 
 
     /*加载所有外部引用
@@ -156,6 +156,114 @@ public class MapGenerator : MonoBehaviour
 	}
 
 
+    /* 在指定单元格处指定位置填充桥
+     * i,j：单元序号；bridgeIndex：桥的索引；depth1：桥入口深度；depth2：桥出口的深度
+     */
+    private void paintBridge(int i, int j, int bridgeIndex, int depth1, int depth2) {
+        //根据桥的具体位置指定填充位置
+        int baseX = 0, baseY = 0;
+        switch (bridgeIndex) {
+            case 0: baseX = i*16 + 1; baseY = (j+1) * 16 - depth1; break;
+            case 1: baseX = i*16 + 6; baseY = (j+1) * 16 - depth1; break;
+            case 2: baseX = i*16 + 11; baseY = (j+1) * 16 - depth1; break;
+            case 3: baseX = (i+1) * 16-depth1; baseY = j * 16 + 11; break;
+            case 4: baseX = (i+1) * 16-depth1; baseY = j * 16 + 6; break;
+            case 5: baseX = (i+1) * 16-depth1; baseY = j * 16 + 1; break;
+            case 6: baseX = i*16 + 11; baseY = j * 16 - depth2; break;
+            case 7: baseX = i*16 + 6; baseY = j * 16 - depth2; break;
+            case 8: baseX = i*16 + 1; baseY = j * 16 - depth2; break;
+            case 9: baseX = i*16 - depth2; baseY = j * 16 + 1; break;
+            case 10: baseX = i*16 - depth2; baseY = j * 16 + 6; break;
+            case 11: baseX = i*16 - depth2; baseY = j * 16 + 11; break;
+		}
+
+
+        //创建填充数组
+        int count = (depth1+depth2)*4;
+        TileBase[] bridgeBlocks = new TileBase[count];
+        TileBase[] bridgeGround = new TileBase[count];
+        TileBase[] bridgeinvisibleBlocks = new TileBase[count];
+
+        //生成地面
+        ArrayList.Repeat(tile_ground,bridgeGround.Length).CopyTo(bridgeGround);
+
+        //分类：纵向桥和横向桥，生成桥沿和桥头
+        int sizeX,sizeY;
+        if (bridgeIndex <= 2 || (bridgeIndex >= 6 && bridgeIndex <= 8)) {
+            sizeX = 4;
+            sizeY = depth1 + depth2;
+
+            //桥头桩
+            bridgeBlocks[0] = tile_doorSide[2];
+            bridgeBlocks[3] = tile_doorSide[3];
+            bridgeBlocks[count - 4] = tile_doorSide[0];
+            bridgeBlocks[count - 1] = tile_doorSide[1];
+            //桥沿
+            for (int k = 1; k < sizeY-1; k++)
+                bridgeBlocks[k*4] = bridgeBlocks[k*4+3] = tile_block;
+		
+            //门
+            GameObject temp;
+            temp = GameObject.Instantiate<GameObject>(prefab_door_left);
+            temp.GetComponent<Door>().x = baseX + 1;
+            temp.GetComponent<Door>().y = baseY;
+            doors.Add(temp);
+            temp = GameObject.Instantiate<GameObject>(prefab_door_left);
+            temp.GetComponent<Door>().x = baseX + 1;
+            temp.GetComponent<Door>().y = baseY + sizeY - 1;
+            doors.Add(temp);
+            temp = GameObject.Instantiate<GameObject>(prefab_door_right);
+            temp.GetComponent<Door>().x = baseX + 2;
+            temp.GetComponent<Door>().y = baseY;
+            doors.Add(temp);
+            temp = GameObject.Instantiate<GameObject>(prefab_door_right);
+            temp.GetComponent<Door>().x = baseX + 2;
+            temp.GetComponent<Door>().y = baseY + sizeY - 1;
+            doors.Add(temp);
+            
+        }
+        else { 
+            sizeX = depth1 + depth2;
+            sizeY = 4;
+
+            bridgeBlocks[0] = tile_doorSide[2];
+            bridgeBlocks[sizeX-1] = tile_doorSide[3];
+            bridgeBlocks[sizeX*3] = tile_doorSide[0];
+            bridgeBlocks[count - 1] = tile_doorSide[1];
+            for (int k = 1; k < sizeX-1; k++)
+                bridgeBlocks[k] = bridgeBlocks[k+sizeX*3] = tile_block;
+
+            //门
+            GameObject temp;
+            temp = GameObject.Instantiate<GameObject>(prefab_door_top);
+            temp.GetComponent<Door>().x = baseX;
+            temp.GetComponent<Door>().y = baseY + 2;
+            doors.Add(temp);
+            temp = GameObject.Instantiate<GameObject>(prefab_door_top);
+            temp.GetComponent<Door>().x = baseX + sizeX - 1;
+            temp.GetComponent<Door>().y = baseY + 2;
+            doors.Add(temp);
+            temp = GameObject.Instantiate<GameObject>(prefab_door_bottom);
+            temp.GetComponent<Door>().x = baseX;
+            temp.GetComponent<Door>().y = baseY + 1;
+            doors.Add(temp);
+            temp = GameObject.Instantiate<GameObject>(prefab_door_bottom);
+            temp.GetComponent<Door>().x = baseX + sizeX - 1;
+            temp.GetComponent<Door>().y = baseY + 1;
+            doors.Add(temp);
+		}
+
+
+        //创建填充区域，填充tilemap
+        BoundsInt region = new BoundsInt(baseX,baseY,0,sizeX,sizeY,1);
+        map_ground.SetTilesBlock(region, bridgeGround);
+        map_onTheGround.SetTilesBlock(region, bridgeBlocks);
+        //用空数组清除不可见块
+        map_invisibleBlocks.SetTilesBlock(region, bridgeinvisibleBlocks);
+        
+	}
+
+
     /* 清除地图
      */
     private void clearMap() {
@@ -164,24 +272,38 @@ public class MapGenerator : MonoBehaviour
         map_onTheGround.ClearAllTiles();
 	}
 
+    /* 清除门
+     */
+    private void clearDoors() {
+        foreach(GameObject ob in doors)
+            DestroyImmediate(ob);
+        doors.Clear();
+	}
+
 
     /* 用于测试，在原点生成一个样例房间
      */
     public void generateSampleRoom()
     {
-        if (allRoomsData == null)   getRoomsData();
         if (allRoomsData.Length == 0)   {
             Debug.Log("No Room Data Found");
             return;
 		}
-        if (map_ground == null) setReferences();
 
         clearMap();
-        int index = UnityEngine.Random.Range(0, allRoomsData.Length);
-        paintRoom(0,0,allRoomsData[index]);
+        clearDoors();
 
+        int index = UnityEngine.Random.Range(0, allRoomsData.Length);
+
+        paintRoom(0,0,allRoomsData[index]);
         mapSizeX = allRoomsData[index].sizeW * 16;
         mapSizeY = allRoomsData[index].sizeH * 16;
+
+        for(int i=0; i < allRoomsData[index].bridgePositions.Length; i++)
+            if (allRoomsData[index].bridgePositions[i] != -1)
+                paintBridge((i/12)%allRoomsData[index].sizeW,(i/12)/allRoomsData[index].sizeW,
+                i%12,allRoomsData[index].bridgePositions[i],UnityEngine.Random.Range(1,6));
+
 	}
 
 
@@ -199,13 +321,46 @@ public class MapGenerator : MonoBehaviour
 	 }
 
 
+    /*启动所有的门
+     */
+    private void startDoors() {
+        foreach(GameObject ob in doors)
+            ob.GetComponent<Door>().init();
+	} 
+
+
+    /*打开所有的门
+     */
+    public void openAllDoors() {
+        foreach(GameObject ob in doors)
+            ob.GetComponent<Door>().setOpen();
+	}
+    
+    /*关闭所有的门
+     */
+    public void closeAllDoors() {
+        foreach(GameObject ob in doors)
+            ob.GetComponent<Door>().setClose();
+	}
+
+
 	private void Start()
 	{
 		setReferences();
         getRoomsData();
+        generateSampleRoom();
+        startDoors();
 	}
 
-}
+	private void Update()
+		{
+		if (Input.GetKeyDown(KeyCode.O))
+            openAllDoors();
+        if (Input.GetKeyDown(KeyCode.C))
+            closeAllDoors();
+		}
+
+	}
 
 
 [CustomEditor(typeof(MapGenerator))]

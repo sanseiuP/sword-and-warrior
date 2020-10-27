@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class Door : MonoBehaviour
 {
-	private Animator anim; //动画组件
+	public Animator anim; //动画组件
 	public int x,y; //在tileMap上的坐标
 	private bool open = true;
 
@@ -17,7 +17,7 @@ public class Door : MonoBehaviour
 	public TileBase tile_invisibleBlock;
 
 
-	private void Start()
+	public void init()
 	{
 		anim = gameObject.GetComponent<Animator>();
 		setClose();
