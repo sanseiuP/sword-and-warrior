@@ -31,6 +31,8 @@ public class RoomDataManager : MonoBehaviour
 	}
 }
 
+
+#if UNITY_EDITOR
 [CustomEditor(typeof(RoomDataManager))]
 public class CustomRoomDataManager : Editor
 {
@@ -46,3 +48,4 @@ public class CustomRoomDataManager : Editor
 		}
 	}
 }
+#endif

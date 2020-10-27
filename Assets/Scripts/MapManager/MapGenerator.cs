@@ -18,11 +18,11 @@ public class MapGenerator : MonoBehaviour
     private Tilemap map_invisibleBlocks;
 
     /*tile的索引*/
-    private TileBase[] tile_doorSide = new TileBase[4];
-    private Tile tile_ground, tile_block, tile_invisibleBlock;
+    public TileBase[] tile_doorSide = new TileBase[4];
+    public Tile tile_ground, tile_block, tile_invisibleBlock;
 
     /*prefab的索引*/
-    private GameObject prefab_door_top, prefab_door_bottom, prefab_door_left, prefab_door_right;
+    public GameObject prefab_door_top, prefab_door_bottom, prefab_door_left, prefab_door_right;
 
     /*tile与ID的映射工具*/
     public Tile_ID_Convertion Convertor;
@@ -61,7 +61,7 @@ public class MapGenerator : MonoBehaviour
 		    if (gameObject.transform.GetChild(i).tag == "Tilemap_Room_InvisibleBlocks")
                 map_invisibleBlocks = gameObject.transform.GetChild(i).GetComponent<Tilemap>();
 		}
-
+        /*
         //获取tile
         tile_doorSide[0] =  AssetDatabase.LoadAssetAtPath<Tile>
         ("Assets/Palettes/roomTiles/doors/doorBlocks_0.asset");
@@ -88,7 +88,7 @@ public class MapGenerator : MonoBehaviour
         ("Assets/Prefab/doors/door_left.prefab");
         prefab_door_right =  AssetDatabase.LoadAssetAtPath<GameObject>
         ("Assets/Prefab/doors/door_right.prefab");
-       
+       */
         prefab_door_top.GetComponent<Door>().map_invisibleBlocks = map_invisibleBlocks;
         prefab_door_bottom.GetComponent<Door>().map_invisibleBlocks = map_invisibleBlocks;
         prefab_door_left.GetComponent<Door>().map_invisibleBlocks = map_invisibleBlocks;
@@ -99,9 +99,11 @@ public class MapGenerator : MonoBehaviour
         prefab_door_left.GetComponent<Door>().tile_invisibleBlock = tile_invisibleBlock;
         prefab_door_right.GetComponent<Door>().tile_invisibleBlock = tile_invisibleBlock;
 
+        /*
         //获取tile_ID映射工具
         Convertor = AssetDatabase.LoadAssetAtPath<Tile_ID_Convertion>
         ("Assets/Resourse/Tile_ID_Convertor.asset");
+        */
 	}
 
 
@@ -125,14 +127,12 @@ public class MapGenerator : MonoBehaviour
                 if (m % 3 < temp.sizeW && m/3 < temp.sizeH)
                     roomLayout = roomLayout | (1 << m);
             roomIndex[i] = mapLayouter.AddRoom(roomLayout);
-            Debug.Log("mapLayouter.AddRoom(" + roomLayout +")");
 
             for (int j = 0; j < temp.sizeH; j++)
                 for (int k = 0; k < temp.sizeW; k++)
                     for (int m=0; m<12; m++)
                         if (temp.bridgePositions[(j*temp.sizeW+k)*12+m] != -1) { 
                             mapLayouter.AddDoor(roomIndex[i], j*3+k, m);
-                            Debug.Log("mapLayouter.AddDoor("+roomIndex[i]+", "+(j*3+k)+", "+m+")");
                             }
 		}
 	}
@@ -307,10 +307,42 @@ public class MapGenerator : MonoBehaviour
 	}
 
 
+    int ExitNoToBridgeNo(int x) {
+        switch(x)  {
+            case 0: return 2;
+            case 1: return 1;
+            case 2: return 0;
+            case 3: return 11;
+            case 4: return 10;
+            case 5: return 9;
+		}
+        return -1;
+	}
+
+    int ExitNoToOppositeBridgeNo(int x) {
+        switch(x)  {
+            case 0: return 6;
+            case 1: return 7;
+            case 2: return 8;
+            case 3: return 3;
+            case 4: return 4;
+            case 5: return 5;
+		}
+        return -1;
+	}
+
+    int layoutIDToRoomDataID (int id) {
+        for (int i = 0; i < roomIndex.Length; i++)
+            if (roomIndex[i] == id)
+                return i;
+        return -1;
+	}
+    
     /*在指定范围内生成一张地图
      */
      public void generateMapInArea(int width, int height, int area) {
         clearMap();
+        clearDoors();
         
         int[,] mapLayout = mapLayouter.GetMap(width, height, area);
         for (int i = 0; i < width; i++) 
@@ -318,6 +350,13 @@ public class MapGenerator : MonoBehaviour
                 if(mapLayout[i,j] != -1) {
                     paintRoom(i*16,j*16,allRoomsData[roomIndex[mapLayout[i,j] ] ]);
 				}
+
+        List<V5> doors = mapLayouter.GetExit();
+        for (int i = 0; i < doors.Count; i ++) { 
+            paintBridge(doors[i].x, doors[i].y, ExitNoToBridgeNo(doors[i].no),
+            allRoomsData[layoutIDToRoomDataID(doors[i].id1)].bridgePositions[ExitNoToBridgeNo(doors[i].no)],
+            allRoomsData[layoutIDToRoomDataID(doors[i].id2)].bridgePositions[ExitNoToOppositeBridgeNo(doors[i].no)]);
+            }
 	 }
 
 
@@ -348,7 +387,8 @@ public class MapGenerator : MonoBehaviour
 	{
 		setReferences();
         getRoomsData();
-        generateSampleRoom();
+        //generateSampleRoom();
+        generateMapInArea(6,6,12);
         startDoors();
 	}
 
@@ -363,6 +403,7 @@ public class MapGenerator : MonoBehaviour
 	}
 
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(MapGenerator))]
 public class CustomMapGenerator : Editor
 {
@@ -390,3 +431,4 @@ public class CustomMapGenerator : Editor
 		}
 	}
 }
+#endif

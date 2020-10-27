@@ -35,8 +35,6 @@ public class Door : MonoBehaviour
 		map_invisibleBlocks.transform.position.y + y + 0.5f,
 		0);
 		anim.SetBool("openDoor", true);
-
-		gameObject.GetComponent<SpriteRenderer>().sortingOrder = -1;
 		
 		map_invisibleBlocks.SetTile(new Vector3Int(x,y,0),null);
 	}

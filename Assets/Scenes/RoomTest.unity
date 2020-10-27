@@ -6284,6 +6284,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4256f11788fa74a40b8c1241a065ad3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tile_doorSide:
+  - {fileID: 11400000, guid: 51c4f15b6ac1a5447a7da116896bef3a, type: 2}
+  - {fileID: 11400000, guid: ab8f534f89c21f8488504e83c7ff3cf6, type: 2}
+  - {fileID: 11400000, guid: 7e65d63e4810176449c99c01842414dc, type: 2}
+  - {fileID: 11400000, guid: e50682746f364744d912393ad1ca1bc8, type: 2}
+  tile_ground: {fileID: 11400000, guid: b0fe62a76c6b6194584dc498291155b0, type: 2}
+  tile_block: {fileID: 11400000, guid: a206e9102cb06534495768b77a3a1a53, type: 2}
+  tile_invisibleBlock: {fileID: 11400000, guid: 2d78be0fdcd12fc468f2e7866e57f733,
+    type: 2}
+  prefab_door_top: {fileID: 6659149609939482027, guid: 8329adc1764b36247a6ed1ab5666e5fc,
+    type: 3}
+  prefab_door_bottom: {fileID: 4258452657022003165, guid: 7a7120f3b431c534993eb387f6677966,
+    type: 3}
+  prefab_door_left: {fileID: 2811353717306156665, guid: 625993216c7fe724a817252c8cdd26af,
+    type: 3}
+  prefab_door_right: {fileID: 8997113559839381071, guid: 469c90e2359adbf47baa75082abb4a23,
+    type: 3}
   Convertor: {fileID: 11400000, guid: 4ee609b707a66874c94c75b81bbbe15d, type: 2}
 --- !u!156049354 &1010890350
 Grid:
@@ -10345,7 +10362,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 0.56078434}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_Origin: {x: 0, y: -3, z: 0}
   m_Size: {x: 32, y: 40, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -10379,6 +10396,11 @@ PrefabInstance:
       propertyPath: Footsteps
       value: 
       objectReference: {fileID: 8300000, guid: d8fdc2e807ebc0244824ae1b2afc8f79, type: 3}
+    - target: {fileID: 1883298064804240047, guid: 853a5ba507bf8dd4298dcc07d461c98a,
+        type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6869549986490697089, guid: 853a5ba507bf8dd4298dcc07d461c98a,
         type: 3}
       propertyPath: m_LocalPosition.x
