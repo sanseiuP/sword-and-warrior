@@ -42,7 +42,7 @@ public class simpleInput : MonoBehaviour
         
     }
 
-    public Actor player;
+    public Warrior player;
     Attack attack;
 
     // Update is called once per frame

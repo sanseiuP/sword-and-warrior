@@ -3335,7 +3335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08bde475a096ae3438f4cf54d3d11869, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1422073985}
+  player: {fileID: 1172634806}
 --- !u!4 &598134266
 Transform:
   m_ObjectHideFlags: 0
@@ -4444,16 +4444,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1422073985 stripped
+--- !u!114 &1172634806 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6869549986490697096, guid: 853a5ba507bf8dd4298dcc07d461c98a,
+  m_CorrespondingSourceObject: {fileID: 1883298064804240047, guid: 853a5ba507bf8dd4298dcc07d461c98a,
     type: 3}
   m_PrefabInstance: {fileID: 6869549985077290249}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6be8e3632e734524092ba92fcd108b92, type: 3}
+  m_Script: {fileID: 11500000, guid: 03f41afb1600d1249b7ba25e43334033, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1422073992 stripped
@@ -7087,6 +7087,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1883298064804240047, guid: 853a5ba507bf8dd4298dcc07d461c98a,
+        type: 3}
+      propertyPath: Footsteps
+      value: 
+      objectReference: {fileID: 8300000, guid: d8fdc2e807ebc0244824ae1b2afc8f79, type: 3}
     - target: {fileID: 6869549986490697089, guid: 853a5ba507bf8dd4298dcc07d461c98a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7158,5 +7163,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: warrior0_22
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6869549986490697100, guid: 853a5ba507bf8dd4298dcc07d461c98a,
+        type: 3}
+      propertyPath: m_AngularDrag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6869549986490697100, guid: 853a5ba507bf8dd4298dcc07d461c98a,
+        type: 3}
+      propertyPath: m_UseAutoMass
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6869549986490697100, guid: 853a5ba507bf8dd4298dcc07d461c98a,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6869549986490697100, guid: 853a5ba507bf8dd4298dcc07d461c98a,
+        type: 3}
+      propertyPath: m_LinearDrag
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6869549986490697096, guid: 853a5ba507bf8dd4298dcc07d461c98a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 853a5ba507bf8dd4298dcc07d461c98a, type: 3}

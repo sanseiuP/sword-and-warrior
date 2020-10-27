@@ -7,6 +7,7 @@ public class Attack : MonoBehaviour
     private Transform transform;
     private float speed = 500;
     private float life = 2f;
+    public int damage;
     Rigidbody2D rigidbody;//子弹/剑的刚体模型
 
     void OnCollisionEnter2D(Collision2D other)//攻击与外界的碰撞检测

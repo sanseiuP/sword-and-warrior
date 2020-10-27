@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6869549986490697089}
   - component: {fileID: 6869549986490697102}
   - component: {fileID: 6869549986490697103}
-  - component: {fileID: 6869549986490697096}
+  - component: {fileID: 1883298064804240047}
   - component: {fileID: 6869549986490697100}
   - component: {fileID: 6869549986490697101}
   - component: {fileID: 6869549986490697099}
@@ -106,7 +106,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6869549986490697096
+--- !u!114 &1883298064804240047
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,11 +115,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6869549986490697097}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6be8e3632e734524092ba92fcd108b92, type: 3}
+  m_Script: {fileID: 11500000, guid: 03f41afb1600d1249b7ba25e43334033, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  Footsteps: {fileID: 8300000, guid: d8fdc2e807ebc0244824ae1b2afc8f79, type: 3}
+  speed: 10
+  Footsteps: {fileID: 0}
 --- !u!50 &6869549986490697100
 Rigidbody2D:
   serializedVersion: 4
