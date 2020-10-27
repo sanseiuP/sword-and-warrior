@@ -19,9 +19,9 @@ using UnityEngine;
         }
     }
 
-public struct V3
+public struct V5
 {
-    public int x, y, no;
+    public int x, y, no,id1,id2;
 
 }
 
@@ -32,7 +32,7 @@ public class MapRandom
 
     public List<Room> rooms = new List<Room>();
     public node[,] map = new node[100, 100];
-    public List<V3> exit = new List<V3>();
+    public List<V5> exit = new List<V5>();
 
     int detime = 0;
     int roomNum = 0;
@@ -125,7 +125,7 @@ public class MapRandom
 
     }
 
-    private void Put_Room(List<V3> exit,int[,] roomPos,int idRoom, node p)
+    private void Put_Room(List<V5> exit,int[,] roomPos,int idRoom, node p)
     {
         Room room = rooms[idRoom];
 
@@ -188,9 +188,11 @@ public class MapRandom
 
                 for(int j = 0; j < 3; j++) if (door[j] >= 0)
                     {
-                        V3 ans;
+                        V5 ans;
                         ans.x = xx;
                         ans.y = yy;
+                        ans.id1 = idRoom;
+                        ans.id2 = otherRoomId;
                         ans.no = door[j];
                         exit.Add(ans);                     
                     }
@@ -254,7 +256,7 @@ public class MapRandom
                
     }
 
-    public List<V3> GetExit()
+    public List<V5> GetExit()
     {
         return exit;
     }
