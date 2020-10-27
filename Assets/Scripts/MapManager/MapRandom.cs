@@ -132,6 +132,9 @@ public class MapRandom
         int[] door = new int[3];
         int xx = 0;
         int yy = 0;
+        int idd1 = 0;
+        int idd2 = 0;
+
         int px = p.x;
         int py = p.y;
 
@@ -179,10 +182,14 @@ public class MapRandom
                 if (i == 0 || i == 3) {
                     xx = nx;
                     yy = ny;
+                    idd1 = idRoom;
+                    idd2 = otherRoomId;
                 }else if (i == 1 || i == 2)
                 {
                     xx = dx;
                     yy = dy;
+                    idd2 = idRoom;
+                    idd1 = otherRoomId;
                 }
 
 
@@ -191,8 +198,8 @@ public class MapRandom
                         V5 ans;
                         ans.x = xx;
                         ans.y = yy;
-                        ans.id1 = idRoom;
-                        ans.id2 = otherRoomId;
+                        ans.id1 = idd1;
+                        ans.id2 = idd2;
                         ans.no = door[j];
                         exit.Add(ans);                     
                     }
