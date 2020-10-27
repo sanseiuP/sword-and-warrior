@@ -8,7 +8,6 @@ public class InputManager : MonoBehaviour
 {
     private static InputManager instance=null; //单例模式
 
-    private InputManager(){}
 
     public static InputManager getInstance() //通过getInstance()函数访问实例
     {

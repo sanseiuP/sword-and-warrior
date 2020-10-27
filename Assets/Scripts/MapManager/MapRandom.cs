@@ -41,7 +41,7 @@ public class MapRandom
     int[,] direction = new int[4, 2] { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };
 
     public int AddRoom(int modleState)//  添加房间，modleState:房间形状，返回房间索引
-    {        
+    {
         rooms.Add(new Room(modleState,roomNum));
         return roomNum++;
 
@@ -227,7 +227,7 @@ public class MapRandom
            
             int idRoom = UnityEngine.Random.Range(0, roomNum);
             Rand_pos(pos, totArea);
-
+             
             for(int i = 0; i < totArea; i++)
             {
                 if (Check(idRoom, pos[i])) 
