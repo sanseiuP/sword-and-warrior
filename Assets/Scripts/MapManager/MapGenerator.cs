@@ -351,7 +351,7 @@ public class MapGenerator : MonoBehaviour
                     paintRoom(i*16,j*16,allRoomsData[roomIndex[mapLayout[i,j] ] ]);
 				}
 
-        List<V5> doors = mapLayouter.GetExit();
+        List<V3> doors = mapLayouter.GetExit();
         for (int i = 0; i < doors.Count; i ++) { 
             paintBridge(doors[i].x, doors[i].y, ExitNoToBridgeNo(doors[i].no),
             allRoomsData[layoutIDToRoomDataID(doors[i].id1)].bridgePositions[ExitNoToBridgeNo(doors[i].no)],

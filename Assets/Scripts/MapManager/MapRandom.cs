@@ -19,9 +19,9 @@ using UnityEngine;
         }
     }
 
-public struct V5
+public struct V3
 {
-    public int x, y, no,id1,id2;
+    public int x, y, no;
 
 }
 
@@ -31,8 +31,8 @@ public class MapRandom
   
 
     public List<Room> rooms = new List<Room>();
-    public node[,] map = new node[100, 100];
-    public List<V5> exit = new List<V5>();
+    
+    public List<V3> exit = new List<V3>();
 
     int detime = 0;
     int roomNum = 0;
@@ -56,7 +56,7 @@ public class MapRandom
    }
 
 
-   private void Init(node[] a,int[,] roomPos)
+   private void Init(node[] a,node [,] map)
     {
         nowRoomNum = 0;
         for (int i = 0; i < length; i++)
@@ -64,8 +64,7 @@ public class MapRandom
             {
                 a[i * width + j].SetValue(i, j);
                 map[i, j].x = -1;
-                map[i, j].y = -1;
-                roomPos[i, j] = -1;
+                map[i, j].y = -1;               
             }
 
     }
@@ -83,7 +82,7 @@ public class MapRandom
    
 
 
-    private bool Check(int idRoom, node p)
+    private bool Check(int idRoom, node[,] map,node p)
     {      
         bool suc = false;
         int px = p.x;
@@ -125,15 +124,14 @@ public class MapRandom
 
     }
 
-    private void Put_Room(List<V5> exit,int[,] roomPos,int idRoom, node p)
+    private void Put_Room(List<V3> exit,node[,] map,int idRoom, node p)
     {
         Room room = rooms[idRoom];
 
         int[] door = new int[3];
         int xx = 0;
         int yy = 0;
-        int idd1 = 0;
-        int idd2 = 0;
+
 
         int px = p.x;
         int py = p.y;
@@ -143,10 +141,7 @@ public class MapRandom
             Block block = room.blocks[id];
             int nx = px + id % 3;
             int ny = py + id / 3;
-           
-
-            if (id == 0) roomPos[nx,ny] = idRoom;
-
+                    
             for (int i = 0; i < 4; i++)
             {
                 int dx = nx + direction[i,0];
@@ -182,24 +177,20 @@ public class MapRandom
                 if (i == 0 || i == 3) {
                     xx = nx;
                     yy = ny;
-                    idd1 = idRoom;
-                    idd2 = otherRoomId;
+                 
                 }else if (i == 1 || i == 2)
                 {
                     xx = dx;
                     yy = dy;
-                    idd2 = idRoom;
-                    idd1 = otherRoomId;
+                
                 }
 
 
                 for(int j = 0; j < 3; j++) if (door[j] >= 0)
                     {
-                        V5 ans;
+                        V3 ans;
                         ans.x = xx;
-                        ans.y = yy;
-                        ans.id1 = idd1;
-                        ans.id2 = idd2;
+                        ans.y = yy;                  
                         ans.no = door[j];
                         exit.Add(ans);                     
                     }
@@ -222,18 +213,18 @@ public class MapRandom
 
 
 
-    public int [,] GetMap(int len,int wid,int area)//，在长，宽范围内生成大地图，返回二维数组，0为空，表示房间信息。
+    public node [,] GetMap(int len,int wid,int area)//，在长，宽范围内生成大地图，返回二维数组，0为空，表示房间信息。
     {
         exit.Clear();
         length = len;
         width = wid;
-        int totArea = length * width;      
-        int[,] roomPos = new int[length, width];
+        int totArea = length * width;
+        node[,] map = new node[length, width];
         node[] pos = new node[totArea];
         detime = 0;
 
 
-        Init(pos,roomPos);
+        Init(pos,map);
         Rand_pos(pos, totArea);
 
 
@@ -247,10 +238,10 @@ public class MapRandom
 
             for(int i = 0; i < totArea; i++)
             {
-                if (Check(idRoom, pos[i])) 
+                if (Check(idRoom, map, pos[i])) 
                 {
                     nowRoomNum++;
-                    Put_Room(exit,roomPos,idRoom, pos[i]);
+                    Put_Room(exit,map,idRoom, pos[i]);
                     areaNow += rooms[idRoom].area;
                     break;
                     
@@ -259,11 +250,11 @@ public class MapRandom
 
         }
 
-        return roomPos;
+        return map;
                
     }
 
-    public List<V5> GetExit()
+    public List<V3> GetExit()
     {
         return exit;
     }

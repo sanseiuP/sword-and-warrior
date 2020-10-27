@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MapTest : MonoBehaviour
 {
-    public int[,] ma;
-    public List<V5> exit; 
+    public node[,] ma;
+    public List<V3> exit; 
     public void Start()
     {
         MapRandom M=new MapRandom();
