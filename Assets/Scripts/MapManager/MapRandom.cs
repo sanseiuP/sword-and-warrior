@@ -34,6 +34,7 @@ public class MapRandom
     public node[,] map = new node[100, 100];
     public List<V3> exit = new List<V3>();
 
+    int detime = 0;
     int roomNum = 0;
     int length = 0;
     int width = 0;
@@ -41,7 +42,7 @@ public class MapRandom
     int[,] direction = new int[4, 2] { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };
 
     public int AddRoom(int modleState)//  添加房间，modleState:房间形状，返回房间索引
-    {
+    {        
         rooms.Add(new Room(modleState,roomNum));
         return roomNum++;
 
@@ -109,7 +110,10 @@ public class MapRandom
                
                 int key1 = block.DoorKey(i);
                 int key2 = otherBlock.DoorKey(i^1);
-                if (key1 != key2) return false;
+                if ((key1 & key2)==0) return false;
+
+                if (detime <= 1000 && idRoom == otherRoomId) return false;
+
                 if (key1 > 0) suc = true;
 
             }
@@ -150,24 +154,25 @@ public class MapRandom
                 int otherBoardId = map[dx,dy].y;
                 Block otherBlock = rooms[otherRoomId].blocks[otherBoardId];
                 int key = block.DoorKey(i);
+                int key2 = otherBlock.DoorKey(i^1);
                 for (int j = 0; j <= 2; j++) door[j] = -1;
 
                 if (i == 0 || i == 1) 
                 {
-                    if ((key >> 2) == 1) door[0] = 2;
+                    if (((key >> 2) == 1) && ((key2 >> 2) == 1)) door[0] = 2;
                   
-                    if (((key >> 1) & 1) == 1) door[1] = 1;
+                    if ((((key >> 1) & 1) == 1) && (((key2 >> 1) & 1) == 1)) door[1] = 1;
                    
-                    if ((key & 1) == 1)  door[2] = 0;
+                    if (((key & 1) == 1) && ((key2 & 1) == 1)) door[2] = 0;
 
                 }
                 else if (i == 2 || i == 3) 
                 {
-                    if ((key >> 2) == 1) door[0] = 3;
+                    if (((key >> 2) == 1) && ((key2 >> 2) == 1)) door[0] = 3;
 
-                    if (((key >> 1) & 1) == 1) door[1] = 4;
+                    if ((((key >> 1) & 1) == 1) && (((key2 >> 1) & 1) == 1)) door[1] = 4;
 
-                    if ((key & 1) == 1) door[2] = 5;
+                    if (((key & 1) == 1) && ((key2 & 1) == 1)) door[2] = 5;
 
                 }
 
@@ -215,7 +220,9 @@ public class MapRandom
         width = wid;
         int totArea = length * width;      
         int[,] roomPos = new int[length, width];
-        node[] pos = new node[totArea];        
+        node[] pos = new node[totArea];
+        detime = 0;
+
 
         Init(pos,roomPos);
         Rand_pos(pos, totArea);
@@ -227,7 +234,8 @@ public class MapRandom
            
             int idRoom = UnityEngine.Random.Range(0, roomNum);
             Rand_pos(pos, totArea);
-             
+            detime++;
+
             for(int i = 0; i < totArea; i++)
             {
                 if (Check(idRoom, pos[i])) 
