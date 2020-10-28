@@ -6,6 +6,8 @@ using UnityEditor;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
+
+#if UNITY_EDITOR
 public class RoomDataManager : MonoBehaviour
 {
     [SerializeField]
@@ -20,7 +22,7 @@ public class RoomDataManager : MonoBehaviour
 
         BinaryFormatter bf = new BinaryFormatter();
 
-        FileStream fs = File.Create(Application.dataPath+"/Resourse/RoomData/AllRoomsData");
+        FileStream fs = File.Create(Application.persistentDataPath + "SAW_RoomData.txt");
 
         bf.Serialize(fs,data);
 
@@ -32,7 +34,6 @@ public class RoomDataManager : MonoBehaviour
 }
 
 
-#if UNITY_EDITOR
 [CustomEditor(typeof(RoomDataManager))]
 public class CustomRoomDataManager : Editor
 {

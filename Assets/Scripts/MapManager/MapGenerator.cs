@@ -112,7 +112,7 @@ public class MapGenerator : MonoBehaviour
     public void getRoomsData() {
         //加载房间数据至数组
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream fs = File.Open(Application.dataPath+"/Resourse/RoomData/AllRoomsData", FileMode.Open);
+        FileStream fs = File.Open(Application.persistentDataPath + "SAW_RoomData.txt", FileMode.Open);
         allRoomsData = bf.Deserialize(fs) as RoomData[];
         fs.Close();
 
@@ -333,6 +333,9 @@ public class MapGenerator : MonoBehaviour
     /*在指定范围内生成一张地图
      */
      public void generateMapInArea(int width, int height, int area) {
+        mapSizeX = width;
+        mapSizeY = height;
+
         clearMap();
         clearDoors();
         
@@ -375,6 +378,32 @@ public class MapGenerator : MonoBehaviour
 
             paintBridge(doors[i].x, doors[i].y, ExitNoToBridgeNo(doors[i].no), depth, depth_opp);
             }
+
+        startDoors();
+	 }
+
+     public Vector2Int getRandomPosition() {
+        int count = 10000;
+        while (count > 0) {
+            count --;
+            int x = Random.Range(0, mapSizeX * 16);
+            int y = Random.Range(0, mapSizeY * 16);
+
+
+            if (map_ground.GetTile(new Vector3Int(x,y,0)) != null &&
+            map_ground.GetTile(new Vector3Int(x+1,y,0)) != null &&
+            map_ground.GetTile(new Vector3Int(x-1,y,0)) != null &&
+            map_ground.GetTile(new Vector3Int(x,y+1,0)) != null &&
+            map_ground.GetTile(new Vector3Int(x,y-1,0)) != null &&
+            map_onTheGround.GetTile(new Vector3Int(x,y,0)) == null &&
+            map_onTheGround.GetTile(new Vector3Int(x+1,y,0)) == null &&
+            map_onTheGround.GetTile(new Vector3Int(x-1,y,0)) == null &&
+            map_onTheGround.GetTile(new Vector3Int(x,y+1,0)) == null &&
+            map_onTheGround.GetTile(new Vector3Int(x,y-1,0)) == null
+            )
+                return new Vector2Int(x,y);
+		}
+        return new Vector2Int(0,0);
 	 }
 
 
@@ -400,15 +429,11 @@ public class MapGenerator : MonoBehaviour
             ob.GetComponent<Door>().setClose();
 	}
 
-
-	private void Start()
-	{
+	private void Awake()
+		{
 		setReferences();
         getRoomsData();
-        //generateSampleRoom();
-        generateMapInArea(10,10,90);
-        startDoors();
-	}
+		}
 
 	private void Update()
 		{

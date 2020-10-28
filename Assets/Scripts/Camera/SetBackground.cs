@@ -19,6 +19,17 @@ public class SetBackground : MonoBehaviour
         public float boundRight;
 	}
     public bgOnCamera backInfo, middleInfo, frontInfo;
+	
+	[System.Serializable]
+	struct actualBounds {
+		public float scale;
+		public float minX;
+		public float minY;
+		public float sizeW;
+		public float sizeH;
+	}
+	[SerializeField]
+	actualBounds backBounds, middleBounds, frontBounds;
 
 	/*摄像机移动范围和宽高（的一半）*/
     private float boundBottom, boundLeft, boundW, boundH; 
@@ -31,15 +42,15 @@ public class SetBackground : MonoBehaviour
 
 
 	/*设置背景对象的位置*/
-	private void setBgPosition(GameObject ob, bgOnCamera info) {
+	private void setBgPosition(GameObject ob, actualBounds bounds) {
 		/*首先获取摄像机移动的比例*/
 		float tx = (gameObject.transform.position.x - boundLeft)/boundW;
 		float ty = (gameObject.transform.position.y - boundBottom)/boundH;
 
-		float minx = info.boundLeft*info.scale + cameraW;
-		float miny = info.boundBottom*info.scale + cameraH;
-		float W = (info.boundRight - info.boundLeft)*info.scale - 2*cameraW;
-		float H = (info.boundTop - info.boundBottom)*info.scale - 2*cameraH;
+		float minx = bounds.minX + cameraW;
+		float miny = bounds.minY + cameraH;
+		float W = bounds.sizeW - 2*cameraW;
+		float H = bounds.sizeH - 2*cameraH;
 
 		ob.transform.position = new Vector3
 		(gameObject.transform.position.x - (minx + tx * W),
@@ -47,45 +58,59 @@ public class SetBackground : MonoBehaviour
 		0);
 	}
 
-	private void setBgOnCameraInfo() {
 
+
+	private actualBounds setBgBounds(bgOnCamera info)
+	{
+		actualBounds bounds = new actualBounds();
+		if ((info.boundTop - info.boundBottom) / cameraH < (info.boundRight - info.boundLeft) / cameraW )
+			bounds.scale = 2*cameraH / (info.boundTop - info.boundBottom) * info.scale;
+		else
+			bounds.scale = 2*cameraW / (info.boundRight - info.boundLeft) * info.scale;
+			
+		bounds.minX = info.boundLeft * bounds.scale;
+		bounds.minY = info.boundBottom * bounds.scale;
+		bounds.sizeW = (info.boundRight - info.boundLeft) * bounds.scale;
+		bounds.sizeH = (info.boundTop - info.boundBottom) * bounds.scale;
+
+		return bounds;
 	}
 
-	private void setCameraBounds() {
-		boundBottom = 0;
-		boundLeft = 0;
-		boundW = 32;
-		boundH = 32;
-	}
 
-	private void Start()
-		{
-		setBgOnCameraInfo();
-		setCameraBounds();
+	public void init(float left, float right, float top, float bottom)
+	{
+		boundBottom = bottom;
+		boundLeft = left;
+		boundW = right - left;
+		boundH = top - bottom;
+
 		cameraH = gameObject.GetComponent<Camera>().orthographicSize;
 		cameraW = cameraH * gameObject.GetComponent<Camera>().aspect;
 
 		background_back = GameObject.Instantiate<GameObject>(prefab_background_back);
 		background_back.transform.parent = gameObject.transform;
+		backBounds = setBgBounds(backInfo);
 		background_back.transform.localScale = new Vector3
-		(backInfo.scale, backInfo.scale, 0);
+		(backBounds.scale, backBounds.scale, 0);
 
 		background_middle = GameObject.Instantiate<GameObject>(prefab_background_middle);
 		background_middle.transform.parent = gameObject.transform;
+		middleBounds = setBgBounds(middleInfo);
 		background_middle.transform.localScale = new Vector3
-		(middleInfo.scale, middleInfo.scale, 0);
+		(middleBounds.scale, middleBounds.scale, 0);
 
 		background_front = GameObject.Instantiate<GameObject>(prefab_background_front);
 		background_front.transform.parent = gameObject.transform;
+		frontBounds = setBgBounds(frontInfo);
 		background_front.transform.localScale = new Vector3
-		(frontInfo.scale, frontInfo.scale, 0);
+		(frontBounds.scale, frontBounds.scale, 0);
 
 		}
 
 	private void Update()
 		{
-		setBgPosition(background_back,backInfo);
-		setBgPosition(background_middle,middleInfo);
-		setBgPosition(background_front,frontInfo);
+		setBgPosition(background_back,backBounds);
+		setBgPosition(background_middle,middleBounds);
+		setBgPosition(background_front,frontBounds);
 		}
 	}
