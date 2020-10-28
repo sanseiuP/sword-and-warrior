@@ -235,11 +235,12 @@ public class MapRandom
             int idRoom = UnityEngine.Random.Range(0, roomNum);
             Rand_pos(pos, totArea);
             detime++;
-
+            if (detime > 2000) break;
             for(int i = 0; i < totArea; i++)
             {
                 if (Check(idRoom, map, pos[i])) 
                 {
+                    detime = 0;
                     nowRoomNum++;
                     Put_Room(exit,map,idRoom, pos[i]);
                     areaNow += rooms[idRoom].area;
