@@ -6,15 +6,15 @@ using UnityEngine;
 public class Actor : MonoBehaviour
 {
     //人物数据相关
-    private string name;
-    private int totalHP, currentHP;
+    protected string name;
+    protected int totalHP, currentHP;
     public float speed = 10f;
-    private bool isMoving = false;
+    protected bool isMoving = false;
     Vector2 lastMoveDirection;//上一次移动方向
     Vector2 moveDirection = new Vector2(0, 0);//移动方向
 
     //音频相关
-    private AudioSource audioSource;
+    protected AudioSource audioSource;
     public AudioClip Footsteps;
 
 
@@ -23,12 +23,7 @@ public class Actor : MonoBehaviour
     Animator animator;//控制动画相关
     Attack attack;
 
-    public interface ActorInterface
-    {
-        void setMove(float direction);
-        void setStand();
-        void encounterAttack(Attack attack);
-    }
+    #region 人物移动相关
     public void setMove(float direction)//设置移动，方向由弧度制表示
     {
         isMoving = true;
@@ -86,11 +81,14 @@ public class Actor : MonoBehaviour
         animator.SetBool("isMoving", false);
         audioSource.Pause();
     }
+    #endregion
 
+    #region 改变生命值相关
     public void encounterAttack(Attack attack)//受到攻击
     {
 
     }
+    #endregion
 
     // Start is called before the first frame update
     void Start()
