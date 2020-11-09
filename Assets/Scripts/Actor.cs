@@ -10,11 +10,11 @@ public class Actor : MonoBehaviour
     protected int totalHP, currentHP;
     public float speed = 10f;
     protected bool isMoving = false;
-    Vector2 lastMoveDirection;//上一次移动方向
-    Vector2 moveDirection = new Vector2(0, 0);//移动方向
+    protected Vector2 lastMoveDirection;//上一次移动方向
+    protected Vector2 moveDirection = new Vector2(0, 0);//移动方向
 
     //音频相关
-    protected AudioSource audioSource;
+    AudioSource audioSource;
     public AudioClip Footsteps;
 
 

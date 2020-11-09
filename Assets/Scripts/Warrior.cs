@@ -53,7 +53,21 @@ public class Warrior : Actor
     #region 武器相关
     public void setWeapon(Item Weapon)
     {
-
+        if (mainWeapon != null)
+        {
+            if (asistWeapon != null)
+            {
+                mainWeapon = Weapon;
+            }
+            else
+            {
+                asistWeapon = Weapon;
+            }
+        }
+        else
+        {
+            mainWeapon = Weapon;
+        }
     }
     #endregion
 
