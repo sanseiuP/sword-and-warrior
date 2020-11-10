@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using Pathfinding;
 
 public class MapGenerator : MonoBehaviour
 {
@@ -430,14 +431,14 @@ public class MapGenerator : MonoBehaviour
 	}
 
 	private void Awake()
-		{
+	{
 		setReferences();
         getRoomsData();
-		}
+    }
 
 	private void Update()
-		{
-		if (Input.GetKeyDown(KeyCode.O))
+    {
+        if (Input.GetKeyDown(KeyCode.O))
             openAllDoors();
         if (Input.GetKeyDown(KeyCode.C))
             closeAllDoors();
