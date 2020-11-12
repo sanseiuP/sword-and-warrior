@@ -6,13 +6,21 @@ using UnityEngine;
 public class Enemy : Actor
 {
     private bool moving;
-    private bool isRising;
     private float moveCounter;
     private float moveTime = 5f;
     //扇形检测
     private float lookAccurte = 3f;//扇形精度
     private float lookAngle = 90f;//扇形角度
     private float rotatePerSecond = 90f;//每一帧旋转角度
+
+    //自动寻路相关
+    public Actor target;
+    public float nextWaypointDistance = 0.3f;
+    Path path;
+    int currentWaypoint;
+    bool reachEndOfPath = false;
+    Seeker seeker;
+    private bool isFound = false;
 
     new Rigidbody2D rigidbody;//人物刚体模型
     Animator animator;//控制动画相关
@@ -52,6 +60,34 @@ public class Enemy : Actor
         animator.SetBool("isMoving", false);
     }
 
+    public void SetAutoPathFinding()
+    {
+
+        if (currentWaypoint >= path.vectorPath.Count)
+        {
+            reachEndOfPath = true;
+        }
+        else
+        {
+            reachEndOfPath = false;
+        }
+
+        moveDirection = ((Vector2)path.vectorPath[currentWaypoint] - rigidbody.position).normalized;
+
+        animator.SetFloat("Look X", moveDirection.x);
+        animator.SetFloat("Look Y", moveDirection.y);
+        animator.SetBool("isMoving", true);
+
+        rigidbody.velocity = moveDirection * speed;
+
+        float distance = Vector2.Distance(rigidbody.position, path.vectorPath[currentWaypoint]);
+
+        if (distance < nextWaypointDistance)
+        {
+            currentWaypoint++;
+        }
+    }
+
     public void Detect()
     {
         float subAngle = (lookAngle / 2) / lookAccurte;
@@ -65,12 +101,7 @@ public class Enemy : Actor
                 Actor player = hit2D.collider.GetComponent<Actor>();
                 if (player != null)
                 {
-                    GameObject.Find("Enemy").GetComponent<AIPath>().enabled = true;
-                    Debug.Log("Emeny spoted");
-                }
-                else
-                {
-                    SetStand();
+                    isFound = true;
                 }
             }
         }
@@ -96,9 +127,21 @@ public class Enemy : Actor
         }
     }
 
-    public void Apathfinding()
+    public void UpdatePath()
     {
+        if (seeker.IsDone())
+        {
+            seeker.StartPath(rigidbody.position, target.GetComponent<Rigidbody2D>().position, OnPathComplete);
+        }
+    }
 
+    public void OnPathComplete(Path p)
+    {
+        if (!p.error)
+        {
+            path = p;
+            currentWaypoint = 0;
+        }
     }
 
     // Start is called before the first frame update
@@ -106,15 +149,26 @@ public class Enemy : Actor
     {
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        seeker = GetComponent<Seeker>();
+
+        InvokeRepeating("UpdatePath", 0f, 0.5f);
+
         moving = false;
+        isFound = false;
         moveCounter = moveTime;
-        GameObject.Find("Enemy").GetComponent<AIPath>().enabled = false;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        MoveControl();
-        Detect();
+        if (!isFound)
+        {
+            MoveControl();
+            Detect();
+        }
+        else
+        {
+            SetAutoPathFinding();
+        }
     }
 }
