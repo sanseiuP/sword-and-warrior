@@ -24,7 +24,7 @@ public class Actor : MonoBehaviour
     Attack attack;
 
     #region 人物移动相关
-    public void setMove(float direction)//设置移动，方向由弧度制表示
+    public void SetMove(float direction)//设置移动，方向由弧度制表示
     {
         isMoving = true;
         moveDirection.x = (float)Math.Cos(direction);
@@ -74,7 +74,7 @@ public class Actor : MonoBehaviour
         rigidbody.velocity = speed * moveDirection;//使人物朝移动方向每帧移动speed的长度
     }
 
-    public void setStand()//设置人物静置
+    public void SetStand()//设置人物静置
     {
         moveDirection = Vector2.zero;
         rigidbody.velocity = Vector2.zero;
@@ -84,7 +84,7 @@ public class Actor : MonoBehaviour
     #endregion
 
     #region 改变生命值相关
-    public void encounterAttack(Attack attack)//受到攻击
+    public void EncounterAttack(Attack attack)//受到攻击
     {
 
     }
@@ -108,6 +108,6 @@ public class Actor : MonoBehaviour
             isMoving = false;
         }
         else
-            setStand();
+            SetStand();
     }
 }

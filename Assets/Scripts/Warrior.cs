@@ -91,7 +91,7 @@ public class Warrior : Actor
             isMoving = false;
         }
         else
-            setStand();
+            SetStand();
         CountInvincible();
     }
 }

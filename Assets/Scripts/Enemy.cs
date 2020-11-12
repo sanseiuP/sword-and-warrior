@@ -6,13 +6,17 @@ using UnityEngine;
 public class Enemy : Actor
 {
     private bool moving;
+    private bool isRising;
     private float moveCounter;
-    private float moveTime = 1f;
-
+    private float moveTime = 5f;
+    //扇形检测
+    private float lookAccurte = 3f;//扇形精度
+    private float lookAngle = 90f;//扇形角度
+    private float rotatePerSecond = 90f;//每一帧旋转角度
 
     new Rigidbody2D rigidbody;//人物刚体模型
     Animator animator;//控制动画相关
-    public void setMove()
+    public void SetMove()
     {
         float chance = Random.value;
         if (!moving)
@@ -38,40 +42,56 @@ public class Enemy : Actor
             animator.SetBool("isMoving", true);
             rigidbody.velocity = moveDirection * speed;
             moving = true;
-            moveCounter = moveTime;
         }
     }
 
-    public void detect()
+    public new void SetStand()
     {
+        rigidbody.velocity = Vector2.zero;
+        moving = false;
+        animator.SetBool("isMoving", false);
+    }
+
+    public void Detect()
+    {
+        float subAngle = (lookAngle / 2) / lookAccurte;
         Physics2D.queriesStartInColliders = false;
-        RaycastHit2D hit2D = Physics2D.Raycast(rigidbody.position, moveDirection, 3f);
-        if (hit2D.collider != null)
+        for (int i = 0; i < lookAccurte; i++)
         {
-            Actor player = hit2D.collider.GetComponent<Actor>();
-            if (player != null)
+            RaycastHit2D hit2D = Physics2D.Raycast(rigidbody.position, Quaternion.Euler(0, 0, -lookAngle / 2 + i * subAngle + Mathf.Repeat(rotatePerSecond * Time.time, subAngle)) * moveDirection, 8f);
+            Debug.DrawRay(rigidbody.position + Vector2.up, Quaternion.Euler(0, 0, -lookAngle / 2 + i * subAngle + Mathf.Repeat(rotatePerSecond * Time.time, subAngle)) * moveDirection, Color.red);
+            if (hit2D.collider != null)
             {
-                GameObject.Find("Enemy").GetComponent<AIPath>().enabled = true;
-                Debug.Log("Emeny spoted");
-            }
-            else
-            {
-                rigidbody.velocity = Vector2.zero;
-                moving = false;
+                Actor player = hit2D.collider.GetComponent<Actor>();
+                if (player != null)
+                {
+                    GameObject.Find("Enemy").GetComponent<AIPath>().enabled = true;
+                    Debug.Log("Emeny spoted");
+                }
+                else
+                {
+                    SetStand();
+                }
             }
         }
     }
 
-    public void countMoving()
+    public void MoveControl()
     {
+        moveCounter -= 1;
         if (moving)
         {
-            moveCounter -= Time.deltaTime;
             if (moveCounter < 0)
             {
-                rigidbody.velocity = Vector2.zero;
-                moving = false;
-                animator.SetBool("isMoving", false);
+                SetStand();
+            }
+        }
+        else
+        {
+            if (moveCounter < -3f)
+            {
+                moveCounter = moveTime;
+                SetMove();
             }
         }
     }
@@ -92,10 +112,9 @@ public class Enemy : Actor
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        setMove();
-        detect();
-        countMoving();
+        MoveControl();
+        Detect();
     }
 }

@@ -58,31 +58,31 @@ public class simpleInput : MonoBehaviour
                 break;
             case 0b0001:
             case 0b1011:
-                player.setMove(0);
+                player.SetMove(0);
                 break;
             case 0b0010:
             case 0b0111:
-                player.setMove(-3.1415926f/2);
+                player.SetMove(-3.1415926f/2);
                 break;
             case 0b0011:
-                player.setMove(-3.1415926f/4);
+                player.SetMove(-3.1415926f/4);
                 break;
             case 0b0100:
             case 0b1110:
-                player.setMove(-3.1415926f);
+                player.SetMove(-3.1415926f);
                 break;
             case 0b0110:
-                player.setMove(-3.1415926f*3/4);
+                player.SetMove(-3.1415926f*3/4);
                 break;
             case 0b1000:
             case 0b1101:
-                player.setMove(3.1415926f/2);
+                player.SetMove(3.1415926f/2);
                 break;
             case 0b1001:
-                player.setMove(3.1415926f/4);
+                player.SetMove(3.1415926f/4);
                 break;
             case 0b1100:
-                player.setMove(3.1415926f*3/4);
+                player.SetMove(3.1415926f*3/4);
                 break;            
             default:
                 break;

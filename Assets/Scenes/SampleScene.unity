@@ -380,11 +380,11 @@ GameObject:
   m_Component:
   - component: {fileID: 695983897}
   - component: {fileID: 695983896}
-  - component: {fileID: 695983895}
   - component: {fileID: 695983894}
   - component: {fileID: 695983893}
   - component: {fileID: 695983892}
   - component: {fileID: 695983891}
+  - component: {fileID: 695983895}
   m_Layer: 0
   m_Name: warrior0_0
   m_TagString: Untagged
@@ -419,7 +419,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 2
-  radius: 0.1
+  radius: 0.07
   height: 2
   repathRate: 0.5
   canSearch: 1
@@ -436,7 +436,7 @@ MonoBehaviour:
   maxAcceleration: -2.5
   rotationSpeed: 360
   slowdownDistance: 0.6
-  pickNextWaypointDist: 0.1
+  pickNextWaypointDist: 0.4
   endReachedDistance: 0.2
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
@@ -491,8 +491,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &695983895
-BoxCollider2D:
+--- !u!58 &695983895
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -504,19 +504,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0024937596, y: -0.0066094026}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.25}
-    oldSize: {x: 0.32, y: 0.32}
-    newSize: {x: 0.32, y: 0.32}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 0.06563853, y: 0.1057557}
-  m_EdgeRadius: 0
+  m_Radius: 0.07
 --- !u!212 &695983896
 SpriteRenderer:
   m_ObjectHideFlags: 0
