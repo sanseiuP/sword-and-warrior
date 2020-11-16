@@ -8,7 +8,7 @@ public class Actor : MonoBehaviour
     //人物数据相关
     protected string name;
     protected int totalHP, currentHP;
-    public float speed = 10f;
+    public float speed = 3f;
     protected bool isMoving = false;
     protected Vector2 lastMoveDirection;//上一次移动方向
     protected Vector2 moveDirection = new Vector2(0, 0);//移动方向

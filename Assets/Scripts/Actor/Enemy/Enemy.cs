@@ -5,30 +5,31 @@ using UnityEngine;
 
 public class Enemy : Actor
 {
-    private bool moving;
-    private float moveCounter;
-    private float moveTime = 5f;
+    protected bool moving;
+    protected float moveCounter;
+    protected float moveTime = 5f;
     //扇形检测
-    private float lookAccurte = 3f;//扇形精度
-    private float lookAngle = 90f;//扇形角度
-    private float rotatePerSecond = 90f;//每一帧旋转角度
+    protected float lookAccurte = 3f;//扇形精度
+    protected float lookAngle = 90f;//扇形角度
+    protected float rotatePerSecond = 90f;//每一帧旋转角度
 
     //自动寻路相关
     public Actor target;
     public float nextWaypointDistance = 0.3f;
-    Path path;
-    int currentWaypoint;
-    bool reachEndOfPath = false;
-    Seeker seeker;
-    private bool isFound = false;
+    protected Path path;
+    protected int currentWaypoint;
+    protected bool reachEndOfPath = false;
+    Seeker enemyseeker;
+    protected bool isFound = false;
 
-    new Rigidbody2D rigidbody;//人物刚体模型
-    Animator animator;//控制动画相关
-    public void SetMove()
+    Rigidbody2D enemyrigidbody;//人物刚体模型
+    Animator enemyanimator;//控制动画相关
+    public void SetMove(Animator animator, Rigidbody2D rigidbody)
     {
         float chance = Random.value;
         if (!moving)
         {
+            lastMoveDirection = moveDirection;
             if (chance < 0.25)
             {
                 moveDirection = Vector2.left;
@@ -53,14 +54,14 @@ public class Enemy : Actor
         }
     }
 
-    public new void SetStand()
+    public void SetStand(Animator animator, Rigidbody2D rigidbody)
     {
         rigidbody.velocity = Vector2.zero;
         moving = false;
         animator.SetBool("isMoving", false);
     }
 
-    public void SetAutoPathFinding()
+    public void SetAutoPathFinding(Animator animator, Rigidbody2D rigidbody)
     {
 
         if (currentWaypoint >= path.vectorPath.Count)
@@ -72,15 +73,27 @@ public class Enemy : Actor
             reachEndOfPath = false;
         }
 
-        moveDirection = ((Vector2)path.vectorPath[currentWaypoint] - rigidbody.position).normalized;
+        float distance = 0;
+        lastMoveDirection = moveDirection;
 
-        animator.SetFloat("Look X", moveDirection.x);
-        animator.SetFloat("Look Y", moveDirection.y);
+        if (currentWaypoint >= 0 && currentWaypoint < path.vectorPath.Count)
+        {
+            moveDirection = ((Vector2)path.vectorPath[currentWaypoint] - rigidbody.position).normalized;
+            distance = Vector2.Distance(rigidbody.position, path.vectorPath[currentWaypoint]);
+        }
+        if (moveDirection.x == 0 && moveDirection.y == 0)
+        {
+            animator.SetFloat("Look X", lastMoveDirection.x);
+            animator.SetFloat("Look Y", lastMoveDirection.y);
+        }
+        else
+        {
+            animator.SetFloat("Look X", moveDirection.x);
+            animator.SetFloat("Look Y", moveDirection.y);
+        }
         animator.SetBool("isMoving", true);
 
         rigidbody.velocity = moveDirection * speed;
-
-        float distance = Vector2.Distance(rigidbody.position, path.vectorPath[currentWaypoint]);
 
         if (distance < nextWaypointDistance)
         {
@@ -88,7 +101,7 @@ public class Enemy : Actor
         }
     }
 
-    public void Detect()
+    public void Detect(Animator animator, Rigidbody2D rigidbody)
     {
         float subAngle = (lookAngle / 2) / lookAccurte;
         Physics2D.queriesStartInColliders = false;
@@ -107,14 +120,14 @@ public class Enemy : Actor
         }
     }
 
-    public void MoveControl()
+    public void MoveControl(Animator animator, Rigidbody2D rigidbody)
     {
         moveCounter -= 1;
         if (moving)
         {
             if (moveCounter < 0)
             {
-                SetStand();
+                SetStand(animator, rigidbody);
             }
         }
         else
@@ -122,16 +135,23 @@ public class Enemy : Actor
             if (moveCounter < -3f)
             {
                 moveCounter = moveTime;
-                SetMove();
+                SetMove(animator, rigidbody);
             }
         }
     }
 
-    public void UpdatePath()
+    public IEnumerator UpdatePath(Seeker seeker, Rigidbody2D rigidbody)
     {
-        if (seeker.IsDone())
+        while (true)
         {
-            seeker.StartPath(rigidbody.position, target.GetComponent<Rigidbody2D>().position, OnPathComplete);
+            //if (isFound)
+            {
+                if (seeker.IsDone())
+                {
+                    seeker.StartPath(rigidbody.position, target.GetComponent<Rigidbody2D>().position, OnPathComplete);
+                }
+            }
+            yield return new WaitForSeconds(0.5f);
         }
     }
 
@@ -147,11 +167,11 @@ public class Enemy : Actor
     // Start is called before the first frame update
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        seeker = GetComponent<Seeker>();
+        enemyrigidbody = GetComponent<Rigidbody2D>();
+        enemyanimator = GetComponent<Animator>();
+        enemyseeker = GetComponent<Seeker>();
 
-        InvokeRepeating("UpdatePath", 0f, 0.5f);
+        StartCoroutine(UpdatePath(enemyseeker, enemyrigidbody));
 
         moving = false;
         isFound = false;
@@ -163,12 +183,12 @@ public class Enemy : Actor
     {
         if (!isFound)
         {
-            MoveControl();
-            Detect();
+            MoveControl(enemyanimator, enemyrigidbody);
+            Detect(enemyanimator, enemyrigidbody);
         }
         else
         {
-            SetAutoPathFinding();
+            SetAutoPathFinding(enemyanimator, enemyrigidbody);
         }
     }
 }
