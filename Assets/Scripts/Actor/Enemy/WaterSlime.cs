@@ -100,6 +100,15 @@ public class WaterSlime : Enemy
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Warrior warrior = other.gameObject.GetComponent<Warrior>();
+        if (warrior != null)
+        {
+            warrior.changeHealth(-1);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
