@@ -5,8 +5,16 @@ using UnityEngine;
 //物品，怪物？
 public class Item :MonoBehaviour
 {
+      public GameObject hitEffect;
+      public float attack;
+      public string role;
+      public float shake;
+      public Vector3 target;
+      public string weaponName;
+      
+    
       private Attack attackProtype;
-
+   
       public void GenerateAttack(Vector2 position)
       {
 
@@ -17,5 +25,52 @@ public class Item :MonoBehaviour
             
 
       }
+      public virtual void ShootButtonDown()//按下攻击按钮（武器类）
+      {
+
+      }
+      
+      public virtual void ShootButtonUp()//武器类
+      {
+
+      }
+      
+      public virtual void PickUp()//捡起武器或道具
+      {
+
+      }
+
+      public virtual void PutDown()
+      {
+
+      }
+
+      public string GetTipsInfo()//靠近时显示武器名字
+      {
+
+      }
+
+      public virtual void UpdateLookAt(Vector3 target)//更新武器朝向
+      {
+
+      }
+
+      public virtual void InitializationOfGun()
+      {
+
+      }
+
+      /// 以上都是武器类
+      /// 
+      /// 
+      /// 
+      public virtual void InitializationOfBullet()
+      {
+
+      }
+
+
+
+
 
 }
