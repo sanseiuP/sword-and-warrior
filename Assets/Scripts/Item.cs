@@ -17,7 +17,7 @@ public class Item :MonoBehaviour
    
       public void GenerateAttack(Vector2 position)
       {
-
+            
       }
 
       public void drop(Vector2 position)
@@ -37,17 +37,17 @@ public class Item :MonoBehaviour
       
       public virtual void PickUp()//捡起武器或道具
       {
-
+            GetComponent<Collider2D>().enabled = false;
       }
 
       public virtual void PutDown()
       {
-
+            GetComponent<Collider2D>().enabled = true;
       }
 
       public string GetTipsInfo()//靠近时显示武器名字
       {
-
+            return weaponName;
       }
 
       public virtual void UpdateLookAt(Vector3 target)//更新武器朝向
@@ -55,16 +55,16 @@ public class Item :MonoBehaviour
 
       }
 
-      public virtual void InitializationOfGun()
+      public virtual void InitializationOfGun(string role,int layer)
       {
-
+            this.role = role;
       }
 
       /// 以上都是武器类
       /// 
       /// 
       /// 
-      public virtual void InitializationOfBullet()
+      public virtual void InitializationOfBullet(float attack, string role, float bulletForce)
       {
 
       }
