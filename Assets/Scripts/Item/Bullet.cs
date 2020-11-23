@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Bullet : Item
 {
-    public GameObject hitEffect;
-    protected float attack;
+    public GameObject hitEffect; //子弹附带攻击效果
+    protected float attack; 
     protected string role;
 
     private void OnTriggerEnter2D(Collider2D collision)

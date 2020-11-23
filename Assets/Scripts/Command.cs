@@ -65,7 +65,7 @@ public class Command : MonoBehaviour
     }
     public void interact()
     {
-
+        
     }
 
 
