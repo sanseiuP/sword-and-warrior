@@ -10,6 +10,10 @@ TagManager:
   - Tilemap_Room_BridgeSign
   - Tilemap_Room_RegionSign
   - Tilemap_Room_InvisibleBlocks
+  - hitBox_Right
+  - hitBox_Left
+  - hitBox_Up
+  - hitBox_Down
   layers:
   - Default
   - TransparentFX
