@@ -1,24 +1,24 @@
 using System;
 using UnityEngine;
 
-enum InteractEntityType
-{
-    Bullet=0,
-    Coin=1,
-    Crystal=2,
-    Gun=3
-};
+// enum InteractEntityType
+// {
+//     Bullet=0,
+//     Coin=1,
+//     Crystal=2,
+//     Gun=3
+// };
 
 //邹凯韬、张志扬负责
 public class InteractEntity :MonoBehaviour
 {
-    public InteractEntityType type;
+    public InteractEntity type;
     public Item item;
     public int cost;
 
-    InteractEntity(InteractEntityType t, Item i, int c){
-        this.type=t;
-        this.item=i;
-        this.cost=c;
-    }
+    // InteractEntity(InteractEntityType t, Item i, int c){
+    //     this.type=t;
+    //     this.item=i;
+    //     this.cost=c;
+    // }
 }
