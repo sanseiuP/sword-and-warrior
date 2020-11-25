@@ -10,11 +10,11 @@ public class Coin : Item
     Transform player;
     bool isDrop;
     int value;
-    /*
+    
     void Start()
     {
-        target = transform.position + new Vector2(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
-        player = GameManager.instance.troops[0].transform;
+        target = transform.position + new Vector3(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), 0);
+        //player = GameManager.instance.troops[0].transform;
     }
     private void Update()
     {
@@ -42,5 +42,5 @@ public class Coin : Item
             }
         }
     }
-    */
+    
 }

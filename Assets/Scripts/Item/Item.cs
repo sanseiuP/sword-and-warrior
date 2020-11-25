@@ -15,7 +15,7 @@ public class Item :MonoBehaviour
     
       private Attack attackProtype;
       
-      /*
+      
       public void GenerateAttack(Vector2 position)
       {
             
@@ -69,7 +69,7 @@ public class Item :MonoBehaviour
       {
 
       }
-      */
+      
 
 
 
