@@ -17,12 +17,14 @@ public class Actor : MonoBehaviour
     AudioSource audioSource;
     public AudioClip Footsteps;
 
+    
+    
 
     Transform transform;//获取人物位置信息
     Rigidbody2D rigidbody;//人物刚体模型
     Animator animator;//控制动画相关
     Attack attack;
-
+    WaveAttack waveattack;
     #region 人物移动相关
     public void SetMove(float direction)//设置移动，方向由弧度制表示
     {
@@ -90,6 +92,47 @@ public class Actor : MonoBehaviour
     }
     #endregion
 
+    #region 近战攻击相关
+    public void setWave()
+    {
+        if (lastMoveDirection.x == 0 && lastMoveDirection.y == 0)
+        {
+            animator.SetTrigger("Wave_Down");
+            waveattack = GameObject.FindGameObjectWithTag("hitBox_Down").GetComponent<WaveAttack>();
+            waveattack.Attack();
+        }
+        else if (Math.Abs(lastMoveDirection.x) > Math.Abs(lastMoveDirection.y))
+        {
+            if (lastMoveDirection.x > 0)
+            {
+                animator.SetTrigger("Wave_Right");
+                waveattack = GameObject.FindGameObjectWithTag("hitBox_Right").GetComponent<WaveAttack>();
+                waveattack.Attack();
+            }
+            else if (lastMoveDirection.x < 0)
+            {
+                animator.SetTrigger("Wave_Left");
+                waveattack = GameObject.FindGameObjectWithTag("hitBox_Left").GetComponent<WaveAttack>();
+                waveattack.Attack();
+            }
+        }
+        else if (Math.Abs(lastMoveDirection.x) < Math.Abs(lastMoveDirection.y))
+        {
+            if (lastMoveDirection.y > 0)
+            {
+                animator.SetTrigger("Wave_Up");
+                waveattack = GameObject.FindGameObjectWithTag("hitBox_Up").GetComponent<WaveAttack>();
+                waveattack.Attack();
+            }
+            else if (lastMoveDirection.y < 0)
+            {
+                animator.SetTrigger("Wave_Down");
+                waveattack = GameObject.FindGameObjectWithTag("hitBox_Down").GetComponent<WaveAttack>();
+                waveattack.Attack();
+            }
+        }
+    }
+    #endregion
     // Start is called before the first frame update
     void Start()
     {
@@ -110,4 +153,5 @@ public class Actor : MonoBehaviour
         else
             SetStand();
     }
+    
 }
