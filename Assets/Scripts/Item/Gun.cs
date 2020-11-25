@@ -11,6 +11,7 @@ public class Gun : Item
     public float CD = 1;
     public float timing = 0;
 
+    /*
     public override void ShootButtonDown()
     {
         if (Time.time - timing >=CD)
@@ -36,4 +37,5 @@ public class Gun : Item
            GetComponent<SpriteRenderer>().flipY = false;
         }
     }
+    */
 }

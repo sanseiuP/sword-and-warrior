@@ -10,6 +10,7 @@ public class Coin : Item
     Transform player;
     bool isDrop;
     int value;
+    /*
     void Start()
     {
         target = transform.position + new Vector2(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
@@ -41,4 +42,5 @@ public class Coin : Item
             }
         }
     }
+    */
 }

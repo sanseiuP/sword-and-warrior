@@ -55,6 +55,7 @@ public class Command : MonoBehaviour
         }
     }
 
+    /*
     public void roll(float direction)
     {
         //what is roll? The roll of the warrior?
@@ -112,11 +113,12 @@ public class Command : MonoBehaviour
             w.setWeapon(weapon);
         }
     }
-
+    */
     public void interact()
     {
         
     }
+    
 
 
 

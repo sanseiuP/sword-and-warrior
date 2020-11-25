@@ -11,6 +11,7 @@ public class Crystal : Item
     Transform player;
     bool isDrop;
     //这里应该加上水晶的功能相关的属性
+    /*
     void Start()
     {
         target = transform.position + new Vector2(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
@@ -42,4 +43,5 @@ public class Crystal : Item
             }
         }
     }
+    */
 }

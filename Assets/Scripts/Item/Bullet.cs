@@ -7,7 +7,7 @@ public class Bullet : Item
     public GameObject hitEffect; //子弹附带攻击效果
     protected float attack; 
     protected string role;
-
+    /*
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //if (collision.transform.tag != role && collision.transform.tag != "Bullet"&& collision.transform.tag != "Room"&& collision.transform.tag != "Weapon")
@@ -32,4 +32,7 @@ public class Bullet : Item
         this.attack = attack;
         this.role = role;
     }
+
+    */
+    
 }
