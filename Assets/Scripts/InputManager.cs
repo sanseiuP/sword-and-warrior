@@ -25,8 +25,13 @@ public class InputManager : MonoBehaviour
         return ismove;
     }
 
-    public bool getAttackInput()
+    public bool getAttackInput() //F键攻击，可以按着不放
     {
         return Input.GetKey(KeyCode.F)||Input.GetKeyDown(KeyCode.F);
+    }
+
+    public bool getSwapWeaponInput() //按下G键捡地上的武器
+    {
+        return Input.GetKeyDown(KeyCode.G);
     }
 }
