@@ -134,7 +134,7 @@ public class WaterSlime : Enemy
     {
         if (currentHP <= 0)
         {
-            Destroy(this.gameObject);
+            waterSlimeanimator.SetBool("isDead", true);
         }
         if (!isFound)
         {

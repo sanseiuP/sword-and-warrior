@@ -90,7 +90,7 @@ public class Actor : MonoBehaviour
     {
         if (currentHP + amount < totalHP)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
         else
         {
@@ -138,7 +138,7 @@ public class Actor : MonoBehaviour
             else if (lastMoveDirection.y < 0)
             {
                 animator.SetTrigger("Wave_Down");
-                waveattack = GameObject.FindGameObjectWithTag("hitBox_Down").GetComponent<WaveAttack>();
+                waveattack = GameObject.FindWithTag("hitBox_Down").GetComponent<WaveAttack>();
                 waveattack.Attack();
             }
         }
@@ -152,6 +152,7 @@ public class Actor : MonoBehaviour
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+        currentHP = 3;
     }
 
     // Update is called once per frame
