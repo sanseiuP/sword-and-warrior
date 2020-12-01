@@ -14,7 +14,7 @@ public class Enemy : Actor
     protected float rotatePerSecond = 90f;//每一帧旋转角度
 
     //自动寻路相关
-    public Actor target;
+    public GameObject target;
     public float nextWaypointDistance = 0.3f;
     protected Path path;
     protected int currentWaypoint;

@@ -86,9 +86,20 @@ public class Actor : MonoBehaviour
     #endregion
 
     #region 改变生命值相关
+    public void changeHealth(int amount)
+    {
+        if (currentHP + amount < totalHP)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            currentHP = Mathf.Clamp(currentHP + amount, 0, totalHP);
+        }
+    }
     public void EncounterAttack(Attack attack)//受到攻击
     {
-
+        changeHealth(attack.damage);
     }
     #endregion
 
