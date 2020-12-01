@@ -8,6 +8,7 @@ public class EnemyGenerator : MonoBehaviour
 
     public GameObject WaterSlime;
     public GameObject target;
+    public GameObject bleed;
 
     private Hashtable enemyIndex = new Hashtable();
 
@@ -19,7 +20,9 @@ public class EnemyGenerator : MonoBehaviour
     {
         Vector2 genPos = new Vector2(xpos, ypos);
         Object genEnemy = (Object)enemyIndex[name];
-        Instantiate(genEnemy, genPos, Quaternion.identity);
+        GameObject enemy=(GameObject)Instantiate(genEnemy, genPos, Quaternion.identity);
+
+      
     }
 
      void Awake()
@@ -27,5 +30,6 @@ public class EnemyGenerator : MonoBehaviour
         Instance = this;
         buildIndex();
         enemyGen("WaterSlime", 0, 0);
+        enemyGen("WaterSlime", 0, 1);
     }
 }
