@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class EnemyRoom 
+public class EnemyRoom : MonoBehaviour
 {
     public EnemyGenerator enemygenrator;
     public Tilemap ground, ontheground;
@@ -25,7 +25,7 @@ public class EnemyRoom
             } while (tile1 == null || tile2 != null);
             
 
-            enemygenrator.enemyGen(name,nx, ny);
+            enemygenrator.enemyGen(name,nx + 0.5f, ny + 0.5f);
             num--;
         }
 

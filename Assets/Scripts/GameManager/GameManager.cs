@@ -24,6 +24,9 @@ public class GameManager : MonoBehaviour
     public enum RoomState { Unexplored, Conquered, Conquering }; //未探索的，已被征服，征服中
     public RoomState[,] roomState;
 
+    /*用于生成房间中的怪物*/
+    public EnemyRoom enemyRoom;
+
     /*指令中心*/
     public CommandManager commandManager;
 
@@ -76,6 +79,7 @@ public class GameManager : MonoBehaviour
             int j = (int)warrior.transform.position.y / 16;
             //如果进入了一个未探索的房间
             if (roomState[i,j] == RoomState.Unexplored) {
+
                 //获取当前玩家所在的房间区间
                 int[] roomRegion = map.GetComponent<MapGenerator>().getRoomRegion(i,j);
                 //调整这片区域的状态
@@ -91,14 +95,16 @@ public class GameManager : MonoBehaviour
                 Debug.Log(pos.x.ToString() + " + " + pos.y);
                 commandManager.addCommand(new Command_MoveTo(pos.x + 0.5f, pos.y + 0.5f));
 
-
+                
+                //生成怪物
+                enemyRoom.GenSomeEnemy
+                (roomRegion[0]*16, roomRegion[1]*16, roomRegion[2]*16, roomRegion[3]*16, "WaterSlime", 5);
 			}
 		}
         if (message.Equals("PlayerArrive")) {
             //所有的门关闭
             map.GetComponent<MapGenerator>().closeAllDoors();
 
-           
             
         }
 	}

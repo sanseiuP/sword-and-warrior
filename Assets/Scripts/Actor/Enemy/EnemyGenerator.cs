@@ -18,6 +18,7 @@ public class EnemyGenerator : MonoBehaviour
     {
         enemyIndex.Add("WaterSlime", WaterSlime);
     }
+
     public void enemyGen(string name, float xpos, float ypos)
     {
         Vector2 genPos = new Vector2(xpos, ypos);
@@ -31,6 +32,5 @@ public class EnemyGenerator : MonoBehaviour
     {
         Instance = this;
         buildIndex();
-        enemyGen("WaterSlime", 0, 0);
     }
 }

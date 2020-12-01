@@ -18756,6 +18756,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 921471172}
+  - component: {fileID: 921471173}
   m_Layer: 0
   m_Name: EnemyRoom
   m_TagString: Untagged
@@ -18777,6 +18778,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &921471173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 921471171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbc812e3100ba4944a75614bb7ce7582, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemygenrator: {fileID: 2042746261}
+  ground: {fileID: 167577357}
+  ontheground: {fileID: 784205469}
 --- !u!1 &942721960
 GameObject:
   m_ObjectHideFlags: 0
@@ -18914,6 +18930,7 @@ MonoBehaviour:
   sizeW: 8
   sizeH: 8
   area: 20
+  enemyRoom: {fileID: 921471173}
   commandManager: {fileID: 1100071608}
 --- !u!4 &991710102
 Transform:
