@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba6534162c502f4f9c5e87e88c6af50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 2
+  damage: 1
   endtime: 0.4
   startTime: 0.1
 --- !u!1 &402266774
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba6534162c502f4f9c5e87e88c6af50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 2
+  damage: 1
   endtime: 0.4
   startTime: 0.1
 --- !u!1 &738103699
@@ -233,7 +233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba6534162c502f4f9c5e87e88c6af50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 2
+  damage: 1
   endtime: 0.4
   startTime: 0.1
 --- !u!1 &1610607265
@@ -315,7 +315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba6534162c502f4f9c5e87e88c6af50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 2
+  damage: 1
   endtime: 0.4
   startTime: 0.1
 --- !u!1 &6869549986490697097
@@ -440,8 +440,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03f41afb1600d1249b7ba25e43334033, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  Footsteps: {fileID: 0}
+  totalHP: 0
+  currentHP: 0
+  speed: 10
+  Footsteps: {fileID: 8300000, guid: d8fdc2e807ebc0244824ae1b2afc8f79, type: 3}
+  slider: {fileID: 0}
   waveTime: 0.8
 --- !u!50 &6869549986490697100
 Rigidbody2D:

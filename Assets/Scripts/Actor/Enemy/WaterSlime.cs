@@ -100,13 +100,12 @@ public class WaterSlime : Enemy
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void OnCollisionStay2D(Collision2D other)
     {
         Warrior warrior = other.gameObject.GetComponent<Warrior>();
-        WaveAttack attack = other.gameObject.GetComponent<WaveAttack>();
         if (warrior != null)
         {
-            warrior.changeHealth(-1);
+            warrior.ChangeHealth(-1);
         }
     }
 
@@ -135,7 +134,6 @@ public class WaterSlime : Enemy
             waterSlimeanimator.SetBool("isDead", true);
             if (waterSlimeanimator.GetBool("shouldDie"))
             {
-                Debug.Log("a");
                 Destroy(this.gameObject);
             }
         }

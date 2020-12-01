@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Warrior : Actor
 {
@@ -15,21 +16,28 @@ public class Warrior : Actor
     public float waveTime;
     WaveAttack waveattack;
     private int countAttack;
+    public Slider blood;
     #region 生命值相关
     public void encounterAttack(Attack attack)//受到攻击
     {
-        changeHealth(attack.damage);
+        ChangeHealth(attack.damage);
     }
 
-    public void changeHealth(int num)//改变生命值相关
+    public void ChangeHealth(int num)//改变生命值相关
     {
         if (num < 0)//是否为受到伤害
         {
             if (isInvincible) return;//是否无敌
+            if (currentHP + num <= 0)
+            {
+                Debug.Log("Defeated");
+            }
             InvincibleTimer = InvincibleTime;//开始无敌时间计时
             isInvincible = true;//当前状态为无敌
         }
         currentHP = Mathf.Clamp(currentHP + num, 0, totalHP);//在指定范围内改变生命值
+        blood.value = (float)currentHP / totalHP;
+        Debug.Log(blood.value);
     }
 
     public void CountInvincible()//无敌时间计时
@@ -128,6 +136,7 @@ public class Warrior : Actor
         audioSource = GetComponent<AudioSource>();
         totalHP = 10;
         currentHP = totalHP;
+        blood.value = 1;
     }
 
     // Update is called once per frame
