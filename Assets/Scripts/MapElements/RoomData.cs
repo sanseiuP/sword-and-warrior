@@ -10,6 +10,7 @@ public struct RoomData {
     public int[] ground;
     public int[] groundDetails;
     public int[] onTheGround;
+    public int[] roomTrigger;
     /*桥的位置，每个单位区域都可以选择12个桥的位点，记录每个位点桥的深度，从1开始
     * 区域以行主序，位点从最左侧top出口开始顺时针编号，得到单元(i,j)的第m号出口索引为
     * (i*sizeW + j) * 12 + m */
@@ -18,7 +19,7 @@ public struct RoomData {
     public RoomData(int w, int h) {
         sizeW = w;
         sizeH = h;
-        ground = groundDetails = onTheGround = null;
+        ground = groundDetails = onTheGround = roomTrigger = null;
         bridgePositions = null;
         }
 

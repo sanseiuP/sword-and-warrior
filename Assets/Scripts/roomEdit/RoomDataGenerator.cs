@@ -18,6 +18,7 @@ public class RoomDataGenerator : MonoBehaviour
     private Tilemap map_onTheGround;
     private Tilemap map_bridgeSign;
     private Tilemap map_regionSign;
+    private Tilemap map_roomTrigger;
     /*sign的引用*/
     private TileBase tile_regionSign;
     private TileBase tile_bridgeSign_top;
@@ -56,6 +57,8 @@ public class RoomDataGenerator : MonoBehaviour
                 map_bridgeSign = gameObject.transform.GetChild(i).GetComponent<Tilemap>();
 		    if (gameObject.transform.GetChild(i).tag == "Tilemap_Room_RegionSign")
                 map_regionSign = gameObject.transform.GetChild(i).GetComponent<Tilemap>();
+		    if (gameObject.transform.GetChild(i).tag == "Tilemap_Room_RoomTrigger")
+                map_roomTrigger = gameObject.transform.GetChild(i).GetComponent<Tilemap>();
 		}
 
         tile_regionSign = AssetDatabase.LoadAssetAtPath<TileBase>
@@ -105,6 +108,7 @@ public class RoomDataGenerator : MonoBehaviour
         data.ground = convertor.fromTilesToIDs(map_ground.GetTilesBlock(region));
         data.groundDetails = convertor.fromTilesToIDs(map_groundDetails.GetTilesBlock(region));
         data.onTheGround = convertor.fromTilesToIDs(map_onTheGround.GetTilesBlock(region));
+        data.roomTrigger = convertor.fromTilesToIDs(map_roomTrigger.GetTilesBlock(region));
 
         //获取出入口
         data.bridgePositions = new int[data.sizeW * data.sizeH * 12];

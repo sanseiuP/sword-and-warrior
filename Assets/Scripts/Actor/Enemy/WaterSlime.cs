@@ -85,10 +85,10 @@ public class WaterSlime : Enemy
                 {
                     y = -y;
                 }
-                Debug.Log("x = " + x + ", y = " + y);
+                //Debug.Log("x = " + x + ", y = " + y);
                 position += new Vector2(x, y);
                 rigidbody.MovePosition(position);
-                Debug.Log(rigidbody.position);
+                //Debug.Log(rigidbody.position);
                 flyTimeCounter += Time.deltaTime;
                 position = startPosition;
             }

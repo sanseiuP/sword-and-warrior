@@ -17,6 +17,7 @@ public class MapGenerator : MonoBehaviour
     private Tilemap map_groundDetails;
     private Tilemap map_onTheGround;
     private Tilemap map_invisibleBlocks;
+    private Tilemap map_roomTrigger;
 
     /*tile的索引*/
     public TileBase[] tile_doorSide = new TileBase[4];
@@ -47,6 +48,8 @@ public class MapGenerator : MonoBehaviour
     private int[] roomIndex; //房间在layout中的id
     private ArrayList doors = new ArrayList(); //所有的门
 
+    public node[,] mapLayout; //地图的布局
+
 
     /*加载所有外部引用
      */
@@ -61,35 +64,10 @@ public class MapGenerator : MonoBehaviour
                 map_onTheGround = gameObject.transform.GetChild(i).GetComponent<Tilemap>();
 		    if (gameObject.transform.GetChild(i).tag == "Tilemap_Room_InvisibleBlocks")
                 map_invisibleBlocks = gameObject.transform.GetChild(i).GetComponent<Tilemap>();
+		    if (gameObject.transform.GetChild(i).tag == "Tilemap_Room_RoomTrigger")
+                map_roomTrigger = gameObject.transform.GetChild(i).GetComponent<Tilemap>();
 		}
-        /*
-        //获取tile
-        tile_doorSide[0] =  AssetDatabase.LoadAssetAtPath<Tile>
-        ("Assets/Palettes/roomTiles/doors/doorBlocks_0.asset");
-        tile_doorSide[1] =  AssetDatabase.LoadAssetAtPath<Tile>
-        ("Assets/Palettes/roomTiles/doors/doorBlocks_1.asset");
-        tile_doorSide[2] =  AssetDatabase.LoadAssetAtPath<Tile>
-        ("Assets/Palettes/roomTiles/doors/doorBlocks_2.asset");
-        tile_doorSide[3] =  AssetDatabase.LoadAssetAtPath<Tile>
-        ("Assets/Palettes/roomTiles/doors/doorBlocks_3.asset");
 
-        tile_ground = AssetDatabase.LoadAssetAtPath<Tile>
-        ("Assets/Palettes/roomTiles/Rule tiles/mixed ground RandomTile.asset");
-        tile_block = AssetDatabase.LoadAssetAtPath<Tile>
-        ("Assets/Palettes/roomTiles/Rule tiles/may_broken block RandomTile.asset");
-        tile_invisibleBlock = AssetDatabase.LoadAssetAtPath<Tile>
-        ("Assets/Palettes/roomTiles/invisibleBlock.asset");
-
-        //获取prefab
-        prefab_door_top =  AssetDatabase.LoadAssetAtPath<GameObject>
-        ("Assets/Prefab/doors/door_top.prefab");
-        prefab_door_bottom =  AssetDatabase.LoadAssetAtPath<GameObject>
-        ("Assets/Prefab/doors/door_bottom.prefab");
-        prefab_door_left =  AssetDatabase.LoadAssetAtPath<GameObject>
-        ("Assets/Prefab/doors/door_left.prefab");
-        prefab_door_right =  AssetDatabase.LoadAssetAtPath<GameObject>
-        ("Assets/Prefab/doors/door_right.prefab");
-       */
         prefab_door_top.GetComponent<Door>().map_invisibleBlocks = map_invisibleBlocks;
         prefab_door_bottom.GetComponent<Door>().map_invisibleBlocks = map_invisibleBlocks;
         prefab_door_left.GetComponent<Door>().map_invisibleBlocks = map_invisibleBlocks;
@@ -100,11 +78,6 @@ public class MapGenerator : MonoBehaviour
         prefab_door_left.GetComponent<Door>().tile_invisibleBlock = tile_invisibleBlock;
         prefab_door_right.GetComponent<Door>().tile_invisibleBlock = tile_invisibleBlock;
 
-        /*
-        //获取tile_ID映射工具
-        Convertor = AssetDatabase.LoadAssetAtPath<Tile_ID_Convertion>
-        ("Assets/Resourse/Tile_ID_Convertor.asset");
-        */
 	}
 
 
@@ -153,6 +126,7 @@ public class MapGenerator : MonoBehaviour
         map_ground.SetTilesBlock(region,Convertor.fromIDsToTiles(data.ground));
         map_groundDetails.SetTilesBlock(region,Convertor.fromIDsToTiles(data.groundDetails));
         map_onTheGround.SetTilesBlock(region,Convertor.fromIDsToTiles(data.onTheGround));
+        map_roomTrigger.SetTilesBlock(region,Convertor.fromIDsToTiles(data.roomTrigger));
         map_invisibleBlocks.SetTilesBlock(region,data_invisibleBlock);
 	}
 
@@ -262,10 +236,6 @@ public class MapGenerator : MonoBehaviour
         //用空数组清除不可见块
         map_invisibleBlocks.SetTilesBlock(region, bridgeinvisibleBlocks);
 
-        Debug.Log ("填充桥："+ i + "，" + j + " ," + bridgeIndex);
-        Debug.Log ("填充桥："+ baseX + " , " + baseY);
-        Debug.Log ("深度："+ depth1 + "，" + depth2);
-        
 	}
 
 
@@ -275,6 +245,7 @@ public class MapGenerator : MonoBehaviour
         map_ground.ClearAllTiles();
         map_groundDetails.ClearAllTiles();
         map_onTheGround.ClearAllTiles();
+        map_roomTrigger.ClearAllTiles();
 	}
 
     /* 清除门
@@ -340,12 +311,15 @@ public class MapGenerator : MonoBehaviour
         clearMap();
         clearDoors();
         
-        node[,] mapLayout = mapLayouter.GetMap(width, height, area);
+        mapLayout = mapLayouter.GetMap(width, height, area);
+
+
         for (int i = 0; i < width; i++) 
-            for (int j = 0; j < height; j++) 
-                if(mapLayout[i,j].x != -1 && mapLayout[i,j].y == 0) {
+            for (int j = 0; j < height; j++)  { 
+                //画房间
+                if(mapLayout[i,j].x != -1 && mapLayout[i,j].y == 0) 
                     paintRoom(i*16,j*16,allRoomsData[roomIndex[mapLayout[i,j].x ] ]);
-				}
+            }
 
         List<V3> doors = mapLayouter.GetExit();
         for (int i = 0; i < doors.Count; i ++) { 
@@ -354,14 +328,12 @@ public class MapGenerator : MonoBehaviour
             (mapLayout[doors[i].x, doors[i].y].y, ExitNoToBridgeNo(doors[i].no));
             int depth = allRoomsData[roomId].bridgePositions[bridgeIndex];
             
-            Debug.Log("y1: " + mapLayout[doors[i].x, doors[i].y].y);
             int roomId_opp, bridgeIndex_opp;
             if (doors[i].no < 3) { 
                 roomId_opp = layoutIDToRoomDataID(mapLayout[doors[i].x, doors[i].y+1].x);
                 bridgeIndex_opp = allRoomsData[roomId_opp].boxIndexToBridgeIndex
                 (mapLayout[doors[i].x, doors[i].y+1].y, 
                 allRoomsData[roomId_opp].oppositeIndex(ExitNoToBridgeNo(doors[i].no)));
-                Debug.Log("y2: " + mapLayout[doors[i].x, doors[i].y+1].y);
                 }
             else
                 { 
@@ -369,13 +341,10 @@ public class MapGenerator : MonoBehaviour
                 bridgeIndex_opp = allRoomsData[roomId_opp].boxIndexToBridgeIndex
                 (mapLayout[doors[i].x-1, doors[i].y].y, 
                 allRoomsData[roomId_opp].oppositeIndex(ExitNoToBridgeNo(doors[i].no)));
-                Debug.Log("y2: " + mapLayout[doors[i].x-1, doors[i].y].y);
                 }
                 
             int depth_opp = allRoomsData[roomId_opp].bridgePositions[bridgeIndex_opp];
 
-            Debug.Log("bridgeId: " + bridgeIndex);
-            Debug.Log("bridgeId_opp: " + bridgeIndex_opp);
 
             paintBridge(doors[i].x, doors[i].y, ExitNoToBridgeNo(doors[i].no), depth, depth_opp);
             }
@@ -383,6 +352,7 @@ public class MapGenerator : MonoBehaviour
         startDoors();
 	 }
 
+     
      public Vector2Int getRandomPosition() {
         int count = 10000;
         while (count > 0) {
@@ -405,6 +375,17 @@ public class MapGenerator : MonoBehaviour
                 return new Vector2Int(x,y);
 		}
         return new Vector2Int(0,0);
+	 }
+
+     /*传递一个地图单元位置为参数，返回一个区间，表示这个单元所对应的房间*/
+     public int[] getRoomRegion(int i, int j)
+     {
+        int k = mapLayout[i,j].y;
+        
+        int[] res = new int[4]
+        { i - k%3, j - k/3, allRoomsData[mapLayout[i,j].x].sizeW, allRoomsData[mapLayout[i,j].x].sizeH };
+
+        return res;
 	 }
 
 
