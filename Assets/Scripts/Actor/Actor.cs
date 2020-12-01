@@ -27,15 +27,15 @@ public class Actor : MonoBehaviour
     public Slider slider;
 
     protected bool isAttacking=false;
+
     #region 人物移动相关
     public void SetMove(float direction)//设置移动，方向由弧度制表示
     {
+        if (isAttacking) {
+            rigidbody.velocity = Vector2.zero;
+            return;
+		}
 
-        if (isAttacking)
-        {
-            speed = 0;
-        }
-        else speed = 3f;
         if(isMoving)    return;
         
         isMoving = true;
@@ -81,8 +81,7 @@ public class Actor : MonoBehaviour
         //移动音频相关
         if (!audioSource.isPlaying)
             audioSource.Play();
-        Vector2 position = rigidbody.position;
-        position += moveDirection * speed * Time.deltaTime;
+
         rigidbody.velocity = speed * moveDirection;//使人物朝移动方向每帧移动speed的长度
     }
 

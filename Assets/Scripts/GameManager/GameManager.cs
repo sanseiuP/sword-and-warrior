@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 public class GameManager : MonoBehaviour
 {
+    enum GameState { Wandering, Conquering, Enforced } ;
+    GameState state = GameState.Wandering;
+
+
     /*需要创建整个场景的大地图，并绑定MapGenerator*/
     public GameObject map;
 
@@ -19,6 +23,9 @@ public class GameManager : MonoBehaviour
     /*房间的状态数据*/
     public enum RoomState { Unexplored, Conquered, Conquering }; //未探索的，已被征服，征服中
     public RoomState[,] roomState;
+
+    /*指令中心*/
+    public CommandManager commandManager;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +43,14 @@ public class GameManager : MonoBehaviour
 
         Vector2Int pos = map.GetComponent<MapGenerator>().getRandomPosition();
         warrior.transform.position = new Vector3(pos.x, pos.y);
+
+        //获取当前玩家所在的房间区间
+        int[] roomRegion = map.GetComponent<MapGenerator>().getRoomRegion(pos.x/16, pos.y/16);
+        //调整这片区域的状态
+        for(int u = 0; u < roomRegion[2]; u++)
+            for(int v = 0; v < roomRegion[3]; v++) 
+                roomState[u+roomRegion[0],v+roomRegion[1]] = RoomState.Conquering;
+
         cam.GetComponent<SetBackground>().init(0, sizeW*16, sizeH*16, 0);
         timer = 2;
     }
@@ -68,11 +83,24 @@ public class GameManager : MonoBehaviour
                     for(int v = 0; v < roomRegion[3]; v++) 
                         roomState[u+roomRegion[0],v+roomRegion[1]] = RoomState.Conquering;
 
-                //所有的门关闭
-                map.GetComponent<MapGenerator>().closeAllDoors();
-                Debug.Log("Enter [" + roomRegion[0] + " , " + roomRegion[1] + " ]");
+                //指示玩家进入场景内部，并改变游戏状态
+                state = GameState.Enforced;
+                //获取离玩家最近的位置
+                Vector2Int pos = map.GetComponent<MapGenerator>().getAdjoinSpace
+                ((int)warrior.transform.position.x,(int)warrior.transform.position.y);
+                Debug.Log(pos.x.ToString() + " + " + pos.y);
+                commandManager.addCommand(new Command_MoveTo(pos.x + 0.5f, pos.y + 0.5f));
+
+
 			}
 		}
+        if (message.Equals("PlayerArrive")) {
+            //所有的门关闭
+            map.GetComponent<MapGenerator>().closeAllDoors();
+
+           
+            
+        }
 	}
 
 }

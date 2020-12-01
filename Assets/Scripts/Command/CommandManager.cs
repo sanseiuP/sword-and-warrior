@@ -8,13 +8,15 @@ public class CommandManager : MonoBehaviour
 
     public Warrior player; //玩家的引用
 
+    public GameManager gameManager; //gameManager的引用，使用消息模式
+
     bool player_acceptControl = true; //标记玩家是否接受输入
 
 
     //添加一个指令到指令流中
     public void addCommand(Command command) {
         //当玩家不接受操纵时，丢弃对玩家的操作命令
-        if (player_acceptControl == false && command.ob.gameObject.tag == "Player" )
+        if (player_acceptControl == false)
             return;
 
         //当上述条件都不满足时，添加指令
@@ -27,8 +29,10 @@ public class CommandManager : MonoBehaviour
     public void notified(string message)  {
         if (message == "ForbidPlayerControl")
             player_acceptControl = false;
-        else if (message == "EnablePlayerControl")
+        else if (message == "PlayerArrive") { 
             player_acceptControl = true;
+            gameManager.notified("PlayerArrive");
+            }
 	}
 
 

@@ -52,6 +52,9 @@ public class Command_Move : Command
 public class Command_MoveTo : Command
 {
     public float dx, dy; //移动的目的地
+
+    const float PI = 3.1415926f;
+
     public Command_MoveTo(float dx_, float dy_) : base("MoveTo")
     {
         dx = dx_;
@@ -62,6 +65,22 @@ public class Command_MoveTo : Command
     public bool execute() {
         //首先向CommandManager发送禁用玩家操作的消息，可能会重复调用
         notify("ForbidPlayerControl");
+
+        //获取玩家的位置
+        float px = ob.transform.position.x;
+        float py = ob.transform.position.y;
+        float s = ob.GetComponent<Warrior>().speed / 60.0f; //以60fps计玩家一帧移动的距离
+
+        //如果只差一步，就当作是到了
+        if ((dx - px)*(dx - px) + (dy - py)*(dy - py) < s*s) {
+            notify("PlayerArrive");
+            return true;
+		}
+
+        //否则就移动
+        float angle = Mathf.Atan((dy - py) / (dx - px)); //返回角位于 -PI/2 ~ PI/2
+        if (dx < px) angle = angle + PI;
+        ob.SetMove(angle);
 
         return false;
 	}

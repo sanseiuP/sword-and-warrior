@@ -250,33 +250,6 @@ public class MapGenerator : MonoBehaviour
         doors.Clear();
 	}
 
-
-    /* 用于测试，在原点生成一个样例房间
-     */
-    public void generateSampleRoom()
-    {
-        if (dataContainer.allRoomsData.Length == 0)   {
-            Debug.Log("No Room Data Found");
-            return;
-		}
-
-        clearMap();
-        clearDoors();
-
-        int index = UnityEngine.Random.Range(0, dataContainer.allRoomsData.Length);
-
-        paintRoom(0,0,dataContainer.allRoomsData[index]);
-        mapSizeX = dataContainer.allRoomsData[index].sizeW * 16;
-        mapSizeY = dataContainer.allRoomsData[index].sizeH * 16;
-
-        for(int i=0; i < dataContainer.allRoomsData[index].bridgePositions.Length; i++)
-            if (dataContainer.allRoomsData[index].bridgePositions[i] != -1)
-                paintBridge((i/12)%dataContainer.allRoomsData[index].sizeW,(i/12)/dataContainer.allRoomsData[index].sizeW,
-                i%12,dataContainer.allRoomsData[index].bridgePositions[i],UnityEngine.Random.Range(1,6));
-
-	}
-
-
     int ExitNoToBridgeNo(int x) {
         switch(x)  {
             case 0: return 2;
@@ -347,6 +320,21 @@ public class MapGenerator : MonoBehaviour
 	 }
 
      
+     public Vector2Int getAdjoinSpace(int x, int y) {
+        if (map_roomTrigger.GetTile(new Vector3Int(x,y,0)) != null )
+            return new Vector2Int(x,y);
+        else if (map_roomTrigger.GetTile(new Vector3Int(x-1,y,0)) != null )
+            return new Vector2Int(x-1,y);
+        else if (map_roomTrigger.GetTile(new Vector3Int(x+1,y,0)) != null )
+            return new Vector2Int(x+1,y);
+        else if (map_roomTrigger.GetTile(new Vector3Int(x,y-1,0)) != null )
+            return new Vector2Int(x,y-1);
+        else if (map_roomTrigger.GetTile(new Vector3Int(x,y+1,0)) != null )
+            return new Vector2Int(x,y+1);
+        else
+            return new Vector2Int();
+	 }
+
      public Vector2Int getRandomPosition() {
         int count = 10000;
         while (count > 0) {
@@ -441,10 +429,6 @@ public class CustomMapGenerator : Editor
             m_target.generateMapLayout();
 		}
         
-        if (GUILayout.Button("生成单个房间")) {
-            m_target.generateSampleRoom();
-		}
-
         if (GUILayout.Button("生成地图")) {
             m_target.generateMapInArea(5,5,9);
 		}
