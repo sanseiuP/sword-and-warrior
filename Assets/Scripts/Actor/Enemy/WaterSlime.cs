@@ -134,32 +134,39 @@ public class WaterSlime : Enemy
     {
         if (currentHP <= 0)
         {
-            Destroy(this.gameObject);
-        }
-        if (!isFound)
-        {
-            MoveControl(waterSlimeanimator, waterSlimerigidbody);
-            Detect();
+            waterSlimeanimator.SetBool("isDead", true);
+            if (waterSlimeanimator.GetBool("shouldDie"))
+            {
+                Destroy(this.gameObject);
+            }
         }
         else
         {
-            attackDistance = Vector2.Distance(waterSlimerigidbody.position, target.GetComponent<Rigidbody2D>().position);
-            if (attackRange < attackDistance && !isFlying && !waterSlimeanimator.GetBool("shouldStand"))//目标不在攻击范围内
+            if (!isFound)
             {
-                waterSlimeanimator.ResetTrigger("isDetected");
-                SetAutoPathFinding(waterSlimeanimator, waterSlimerigidbody);
+                MoveControl(waterSlimeanimator, waterSlimerigidbody);
+                Detect();
             }
             else
             {
-                waterSlimeanimator.SetTrigger("isDetected");
-                if (waterSlimeanimator.GetBool("shouldStand"))
+                attackDistance = Vector2.Distance(waterSlimerigidbody.position, target.GetComponent<Rigidbody2D>().position);
+                if (attackRange < attackDistance && !isFlying && !waterSlimeanimator.GetBool("shouldStand"))//目标不在攻击范围内
                 {
-                    SetStand(waterSlimeanimator, waterSlimerigidbody);
-                } 
-                else if (attackRange >= attackDistance || isFlying)
+                    waterSlimeanimator.ResetTrigger("isDetected");
+                    SetAutoPathFinding(waterSlimeanimator, waterSlimerigidbody);
+                }
+                else
                 {
-                    flyDistance = attackDistance;
-                    parabolicMotion(waterSlimeanimator, waterSlimerigidbody);
+                    waterSlimeanimator.SetTrigger("isDetected");
+                    if (waterSlimeanimator.GetBool("shouldStand"))
+                    {
+                        SetStand(waterSlimeanimator, waterSlimerigidbody);
+                    }
+                    else if (attackRange >= attackDistance || isFlying)
+                    {
+                        flyDistance = attackDistance;
+                        parabolicMotion(waterSlimeanimator, waterSlimerigidbody);
+                    }
                 }
             }
         }

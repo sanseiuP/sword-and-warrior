@@ -24,9 +24,9 @@ public class Actor : MonoBehaviour
     Rigidbody2D rigidbody;//人物刚体模型
     Animator animator;//控制动画相关
     Attack attack;
-    WaveAttack waveattack;
+    
     #region 人物移动相关
-    public void SetMove(float direction)//设置移动，方向由弧度制表示
+    public void SetMove(float direction, Rigidbody2D rigidbody, Animator animator,AudioSource audioSource)//设置移动，方向由弧度制表示
     {
         isMoving = true;
         moveDirection.x = (float)Math.Cos(direction);
@@ -76,7 +76,7 @@ public class Actor : MonoBehaviour
         rigidbody.velocity = speed * moveDirection;//使人物朝移动方向每帧移动speed的长度
     }
 
-    public void SetStand()//设置人物静置
+    public void SetStand(Rigidbody2D rigidbody, Animator animator, AudioSource audioSource)//设置人物静置
     {
         moveDirection = Vector2.zero;
         rigidbody.velocity = Vector2.zero;
@@ -90,7 +90,7 @@ public class Actor : MonoBehaviour
     {
         if (currentHP + amount < totalHP)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
         else
         {
@@ -103,47 +103,7 @@ public class Actor : MonoBehaviour
     }
     #endregion
 
-    #region 近战攻击相关
-    public void setWave()
-    {
-        if (lastMoveDirection.x == 0 && lastMoveDirection.y == 0)
-        {
-            animator.SetTrigger("Wave_Down");
-            waveattack = GameObject.FindGameObjectWithTag("hitBox_Down").GetComponent<WaveAttack>();
-            waveattack.Attack();
-        }
-        else if (Math.Abs(lastMoveDirection.x) > Math.Abs(lastMoveDirection.y))
-        {
-            if (lastMoveDirection.x > 0)
-            {
-                animator.SetTrigger("Wave_Right");
-                waveattack = GameObject.FindGameObjectWithTag("hitBox_Right").GetComponent<WaveAttack>();
-                waveattack.Attack();
-            }
-            else if (lastMoveDirection.x < 0)
-            {
-                animator.SetTrigger("Wave_Left");
-                waveattack = GameObject.FindGameObjectWithTag("hitBox_Left").GetComponent<WaveAttack>();
-                waveattack.Attack();
-            }
-        }
-        else if (Math.Abs(lastMoveDirection.x) < Math.Abs(lastMoveDirection.y))
-        {
-            if (lastMoveDirection.y > 0)
-            {
-                animator.SetTrigger("Wave_Up");
-                waveattack = GameObject.FindGameObjectWithTag("hitBox_Up").GetComponent<WaveAttack>();
-                waveattack.Attack();
-            }
-            else if (lastMoveDirection.y < 0)
-            {
-                animator.SetTrigger("Wave_Down");
-                waveattack = GameObject.FindGameObjectWithTag("hitBox_Down").GetComponent<WaveAttack>();
-                waveattack.Attack();
-            }
-        }
-    }
-    #endregion
+ 
     // Start is called before the first frame update
     void Start()
     {
@@ -152,6 +112,7 @@ public class Actor : MonoBehaviour
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+        currentHP = 3;
     }
 
     // Update is called once per frame
@@ -162,7 +123,7 @@ public class Actor : MonoBehaviour
             isMoving = false;
         }
         else
-            SetStand();
+            SetStand(rigidbody, animator, audioSource);
     }
     
 }

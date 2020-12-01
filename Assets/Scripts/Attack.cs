@@ -29,7 +29,7 @@ public class Attack : MonoBehaviour
     void Awake()//使用Awake保证攻击对象一被生成就进行初始化
     {
         rigidbody = GetComponent<Rigidbody2D>();//获取组件
-        Destroy(this.gameObject, life);//在指定时间后自动销毁
+        //Destroy(this.gameObject, life);//在指定时间后自动销毁
     }
 
     // Update is called once per frame

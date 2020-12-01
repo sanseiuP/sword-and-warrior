@@ -42,7 +42,7 @@ public class simpleInput : MonoBehaviour
         
     }
 
-    public Actor player;
+    public Warrior player;
     Attack attack;
 
     // Update is called once per frame
@@ -60,31 +60,31 @@ public class simpleInput : MonoBehaviour
                 break;
             case 0b0001:
             case 0b1011:
-                player.SetMove(0);
+                player.SetMove(0,player.GetComponent<Rigidbody2D>(), player.GetComponent<Animator>(),player.GetComponent<AudioSource>());
                 break;
             case 0b0010:
             case 0b0111:
-                player.SetMove(-3.1415926f/2);
+                player.SetMove(-3.1415926f/2, player.GetComponent<Rigidbody2D>(), player.GetComponent<Animator>(), player.GetComponent<AudioSource>());
                 break;
             case 0b0011:
-                player.SetMove(-3.1415926f/4);
+                player.SetMove(-3.1415926f/4, player.GetComponent<Rigidbody2D>(), player.GetComponent<Animator>(), player.GetComponent<AudioSource>());
                 break;
             case 0b0100:
             case 0b1110:
-                player.SetMove(-3.1415926f);
+                player.SetMove(-3.1415926f, player.GetComponent<Rigidbody2D>(), player.GetComponent<Animator>(), player.GetComponent<AudioSource>());
                 break;
             case 0b0110:
-                player.SetMove(-3.1415926f*3/4);
+                player.SetMove(-3.1415926f*3/4, player.GetComponent<Rigidbody2D>(), player.GetComponent<Animator>(), player.GetComponent<AudioSource>());
                 break;
             case 0b1000:
             case 0b1101:
-                player.SetMove(3.1415926f/2);
+                player.SetMove(3.1415926f/2, player.GetComponent<Rigidbody2D>(), player.GetComponent<Animator>(), player.GetComponent<AudioSource>());
                 break;
             case 0b1001:
-                player.SetMove(3.1415926f/4);
+                player.SetMove(3.1415926f/4, player.GetComponent<Rigidbody2D>(), player.GetComponent<Animator>(), player.GetComponent<AudioSource>());
                 break;
             case 0b1100:
-                player.SetMove(3.1415926f*3/4);
+                player.SetMove(3.1415926f*3/4, player.GetComponent<Rigidbody2D>(), player.GetComponent<Animator>(), player.GetComponent<AudioSource>());
                 break;            
             default:
                 break;
