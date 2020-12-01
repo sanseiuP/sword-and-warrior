@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
        regenerate();
     }
 
-    void regenerate() 
+    void regenerate()
     {
         map.GetComponent<MapGenerator>().generateMapInArea(sizeW, sizeH, area);
         roomState = new RoomState [sizeW, sizeH];
