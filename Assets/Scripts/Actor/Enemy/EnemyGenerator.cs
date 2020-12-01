@@ -10,6 +10,8 @@ public class EnemyGenerator : MonoBehaviour
     public GameObject target;
     public GameObject bleed;
 
+
+
     private Hashtable enemyIndex = new Hashtable();
 
     private void buildIndex()
