@@ -76,8 +76,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 2
-  endtime: 0.73
-  startTime: 0.31
+  endtime: 0.2
+  startTime: 0.1
 --- !u!1 &402266774
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,8 +156,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 2
-  endtime: 0.73
-  startTime: 0.31
+  endtime: 0.2
+  startTime: 0.1
 --- !u!1 &738103699
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,8 +234,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 2
-  endtime: 0.73
-  startTime: 0.31
+  endtime: 0.2
+  startTime: 0.1
 --- !u!1 &1610607265
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,8 +316,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 2
-  endtime: 0.73
-  startTime: 0.31
+  endtime: 0.2
+  startTime: 0.1
 --- !u!1 &6869549986490697097
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,6 +442,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   Footsteps: {fileID: 0}
+  waveTime: 1
 --- !u!50 &6869549986490697100
 Rigidbody2D:
   serializedVersion: 4

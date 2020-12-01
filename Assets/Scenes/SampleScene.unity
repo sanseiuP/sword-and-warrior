@@ -917,36 +917,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 287890815, guid: 853a5ba507bf8dd4298dcc07d461c98a, type: 3}
-      propertyPath: startTime
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 287890815, guid: 853a5ba507bf8dd4298dcc07d461c98a, type: 3}
       propertyPath: endtime
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 402266776, guid: 853a5ba507bf8dd4298dcc07d461c98a, type: 3}
-      propertyPath: startTime
-      value: 0.1
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 402266776, guid: 853a5ba507bf8dd4298dcc07d461c98a, type: 3}
       propertyPath: endtime
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 738103701, guid: 853a5ba507bf8dd4298dcc07d461c98a, type: 3}
-      propertyPath: startTime
-      value: 0.1
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 738103701, guid: 853a5ba507bf8dd4298dcc07d461c98a, type: 3}
       propertyPath: endtime
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1610607267, guid: 853a5ba507bf8dd4298dcc07d461c98a, type: 3}
-      propertyPath: startTime
-      value: 0.1
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 1610607267, guid: 853a5ba507bf8dd4298dcc07d461c98a, type: 3}
       propertyPath: endtime
-      value: 0.2
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 6869549986490697089, guid: 853a5ba507bf8dd4298dcc07d461c98a,
         type: 3}
