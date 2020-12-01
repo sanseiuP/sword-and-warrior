@@ -1,0 +1,392 @@
+fileFormatVersion: 2
+guid: ed5d52fa2b4f24a43bce5069cae18118
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3789620576058529568
+    second: backapl_0
+  - first:
+      213: 572664577734386812
+    second: backapl_1
+  - first:
+      213: -5372659234385525331
+    second: backapl_2
+  - first:
+      213: -5763085017301116322
+    second: backapl_3
+  - first:
+      213: 2886839815374781187
+    second: backapl_4
+  - first:
+      213: -7413662547985644010
+    second: backapl_5
+  - first:
+      213: -2988149579779020208
+    second: backapl_6
+  - first:
+      213: -8870422773833125617
+    second: backapl_7
+  - first:
+      213: -7701709879327588018
+    second: backapl_8
+  - first:
+      213: -8853640642165427862
+    second: backapl_9
+  - first:
+      213: -6781557038392970341
+    second: backapl_10
+  - first:
+      213: 4033476187412988157
+    second: backapl_11
+  - first:
+      213: 299146251486927350
+    second: backapl_12
+  - first:
+      213: -5633726094223019548
+    second: backapl_13
+  - first:
+      213: 4188340540699676325
+    second: backapl_14
+  - first:
+      213: 449011886658626428
+    second: backapl_15
+  - first:
+      213: -7646190598235148403
+    second: backapl_16
+  - first:
+      213: 948949320020011602
+    second: backapl_17
+  - first:
+      213: -2487573165846529899
+    second: backapl_18
+  - first:
+      213: 2690869818789209306
+    second: backapl_19
+  - first:
+      213: -2912638908657088058
+    second: backapl_20
+  - first:
+      213: 761335278133148159
+    second: backapl_21
+  - first:
+      213: 9053862368986243842
+    second: backapl_22
+  - first:
+      213: -3248271248434194193
+    second: backapl_23
+  - first:
+      213: 8829146562379540197
+    second: backapl_24
+  - first:
+      213: 943718078841040794
+    second: backapl_25
+  - first:
+      213: -988114663737076625
+    second: backapl_26
+  - first:
+      213: 2949336925723085733
+    second: backapl_27
+  - first:
+      213: -354300621335678047
+    second: backapl_28
+  - first:
+      213: -1043442332920159231
+    second: backapl_29
+  - first:
+      213: 4667722790722984127
+    second: backapl_30
+  - first:
+      213: 2445277362767393830
+    second: backapl_31
+  - first:
+      213: -1718213603985412469
+    second: backapl_32
+  - first:
+      213: 694216807997960509
+    second: backapl_33
+  - first:
+      213: -1728459029219493430
+    second: backapl_34
+  - first:
+      213: -6339775111979857464
+    second: backapl_35
+  - first:
+      213: 1162786315592448984
+    second: backapl_36
+  - first:
+      213: 6776606255627381851
+    second: backapl_37
+  - first:
+      213: -5050355854850713667
+    second: backapl_38
+  - first:
+      213: -6467028465711586706
+    second: backapl_39
+  - first:
+      213: 772440542536760340
+    second: backapl_40
+  - first:
+      213: 3456854487266349088
+    second: backapl_41
+  - first:
+      213: 9113530732542512315
+    second: backapl_42
+  - first:
+      213: -4089474729131627262
+    second: backapl_43
+  - first:
+      213: -2161264785698939605
+    second: backapl_44
+  - first:
+      213: -8046200091197151990
+    second: backapl_45
+  - first:
+      213: -8789502905775835345
+    second: backapl_46
+  - first:
+      213: -2475376213596579320
+    second: backapl_47
+  - first:
+      213: 6549720930615507927
+    second: backapl_48
+  - first:
+      213: -8310805214278822051
+    second: backapl_49
+  - first:
+      213: -411211275084183720
+    second: backapl_50
+  - first:
+      213: 5989884772015320148
+    second: backapl_51
+  - first:
+      213: 9115971695488401470
+    second: backapl_52
+  - first:
+      213: 8432828308683187437
+    second: backapl_53
+  - first:
+      213: -6352848833703880028
+    second: backapl_54
+  - first:
+      213: 1739083965588154129
+    second: backapl_55
+  - first:
+      213: 7723531098975881008
+    second: backapl_56
+  - first:
+      213: 493861403994501185
+    second: backapl_57
+  - first:
+      213: -2724601141131735237
+    second: backapl_58
+  - first:
+      213: 2500976776379092199
+    second: backapl_59
+  - first:
+      213: -2987922224047980265
+    second: backapl_60
+  - first:
+      213: 7899483591734839509
+    second: backapl_61
+  - first:
+      213: -3081010860070362987
+    second: backapl_62
+  - first:
+      213: 5167751446603707477
+    second: backapl_63
+  - first:
+      213: 4998500359013598588
+    second: backapl_64
+  - first:
+      213: 2175261273233819853
+    second: backapl_65
+  - first:
+      213: -3447291139707829810
+    second: backapl_66
+  - first:
+      213: -8977169850237797784
+    second: backapl_0
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: backapl_0
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 557
+        width: 786
+        height: 259
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86aba34959faa6380800000000000000
+      internalID: -8977169850237797784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: backapl_2
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 316
+        width: 280
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da58a3354ea7075b0800000000000000
+      internalID: -5372659234385525331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: backapl_3
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 203
+        width: 280
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5a146df5b86500b0800000000000000
+      internalID: -5763085017301116322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: backapl_4
+      rect:
+        serializedVersion: 2
+        x: 254
+        y: 92
+        width: 280
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30b3ed6548d101820800000000000000
+      internalID: 2886839815374781187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
