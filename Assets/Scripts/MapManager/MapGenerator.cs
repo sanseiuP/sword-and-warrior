@@ -32,8 +32,8 @@ public class MapGenerator : MonoBehaviour
 
     /*资源数据
      */
-    /*所有房间的数据*/
-    private RoomData[] allRoomsData;
+    /*房间的数据*/
+    public RoomDataContainer dataContainer;
 
 
     /*辅助类
@@ -83,18 +83,12 @@ public class MapGenerator : MonoBehaviour
 
     /* 加载房间数据并加载mapLayouter
      */
-    public void getRoomsData() {
-        //加载房间数据至数组
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream fs = File.Open(Application.persistentDataPath + "SAW_RoomData.txt", FileMode.Open);
-        allRoomsData = bf.Deserialize(fs) as RoomData[];
-        fs.Close();
-
+    public void generateMapLayout() {
         //加载mapLayouter
-        roomIndex = new int[allRoomsData.Length];
+        roomIndex = new int[dataContainer.allRoomsData.Length];
         mapLayouter = new MapRandom();
-        for (int i = 0; i < allRoomsData.Length; i ++) {
-            RoomData temp = allRoomsData[i];
+        for (int i = 0; i < dataContainer.allRoomsData.Length; i ++) {
+            RoomData temp = dataContainer.allRoomsData[i];
 
             int roomLayout = 0b0_0000_0000;
             for (int m = 0; m < 9; m ++) 
@@ -261,7 +255,7 @@ public class MapGenerator : MonoBehaviour
      */
     public void generateSampleRoom()
     {
-        if (allRoomsData.Length == 0)   {
+        if (dataContainer.allRoomsData.Length == 0)   {
             Debug.Log("No Room Data Found");
             return;
 		}
@@ -269,16 +263,16 @@ public class MapGenerator : MonoBehaviour
         clearMap();
         clearDoors();
 
-        int index = UnityEngine.Random.Range(0, allRoomsData.Length);
+        int index = UnityEngine.Random.Range(0, dataContainer.allRoomsData.Length);
 
-        paintRoom(0,0,allRoomsData[index]);
-        mapSizeX = allRoomsData[index].sizeW * 16;
-        mapSizeY = allRoomsData[index].sizeH * 16;
+        paintRoom(0,0,dataContainer.allRoomsData[index]);
+        mapSizeX = dataContainer.allRoomsData[index].sizeW * 16;
+        mapSizeY = dataContainer.allRoomsData[index].sizeH * 16;
 
-        for(int i=0; i < allRoomsData[index].bridgePositions.Length; i++)
-            if (allRoomsData[index].bridgePositions[i] != -1)
-                paintBridge((i/12)%allRoomsData[index].sizeW,(i/12)/allRoomsData[index].sizeW,
-                i%12,allRoomsData[index].bridgePositions[i],UnityEngine.Random.Range(1,6));
+        for(int i=0; i < dataContainer.allRoomsData[index].bridgePositions.Length; i++)
+            if (dataContainer.allRoomsData[index].bridgePositions[i] != -1)
+                paintBridge((i/12)%dataContainer.allRoomsData[index].sizeW,(i/12)/dataContainer.allRoomsData[index].sizeW,
+                i%12,dataContainer.allRoomsData[index].bridgePositions[i],UnityEngine.Random.Range(1,6));
 
 	}
 
@@ -318,32 +312,32 @@ public class MapGenerator : MonoBehaviour
             for (int j = 0; j < height; j++)  { 
                 //画房间
                 if(mapLayout[i,j].x != -1 && mapLayout[i,j].y == 0) 
-                    paintRoom(i*16,j*16,allRoomsData[roomIndex[mapLayout[i,j].x ] ]);
+                    paintRoom(i*16,j*16,dataContainer.allRoomsData[roomIndex[mapLayout[i,j].x ] ]);
             }
 
         List<V3> doors = mapLayouter.GetExit();
         for (int i = 0; i < doors.Count; i ++) { 
             int roomId = layoutIDToRoomDataID(mapLayout[doors[i].x, doors[i].y].x);
-            int bridgeIndex = allRoomsData[roomId].boxIndexToBridgeIndex
+            int bridgeIndex = dataContainer.allRoomsData[roomId].boxIndexToBridgeIndex
             (mapLayout[doors[i].x, doors[i].y].y, ExitNoToBridgeNo(doors[i].no));
-            int depth = allRoomsData[roomId].bridgePositions[bridgeIndex];
+            int depth = dataContainer.allRoomsData[roomId].bridgePositions[bridgeIndex];
             
             int roomId_opp, bridgeIndex_opp;
             if (doors[i].no < 3) { 
                 roomId_opp = layoutIDToRoomDataID(mapLayout[doors[i].x, doors[i].y+1].x);
-                bridgeIndex_opp = allRoomsData[roomId_opp].boxIndexToBridgeIndex
+                bridgeIndex_opp = dataContainer.allRoomsData[roomId_opp].boxIndexToBridgeIndex
                 (mapLayout[doors[i].x, doors[i].y+1].y, 
-                allRoomsData[roomId_opp].oppositeIndex(ExitNoToBridgeNo(doors[i].no)));
+                dataContainer.allRoomsData[roomId_opp].oppositeIndex(ExitNoToBridgeNo(doors[i].no)));
                 }
             else
                 { 
                 roomId_opp = layoutIDToRoomDataID(mapLayout[doors[i].x-1, doors[i].y].x);
-                bridgeIndex_opp = allRoomsData[roomId_opp].boxIndexToBridgeIndex
+                bridgeIndex_opp = dataContainer.allRoomsData[roomId_opp].boxIndexToBridgeIndex
                 (mapLayout[doors[i].x-1, doors[i].y].y, 
-                allRoomsData[roomId_opp].oppositeIndex(ExitNoToBridgeNo(doors[i].no)));
+                dataContainer.allRoomsData[roomId_opp].oppositeIndex(ExitNoToBridgeNo(doors[i].no)));
                 }
                 
-            int depth_opp = allRoomsData[roomId_opp].bridgePositions[bridgeIndex_opp];
+            int depth_opp = dataContainer.allRoomsData[roomId_opp].bridgePositions[bridgeIndex_opp];
 
 
             paintBridge(doors[i].x, doors[i].y, ExitNoToBridgeNo(doors[i].no), depth, depth_opp);
@@ -383,7 +377,7 @@ public class MapGenerator : MonoBehaviour
         int k = mapLayout[i,j].y;
         
         int[] res = new int[4]
-        { i - k%3, j - k/3, allRoomsData[mapLayout[i,j].x].sizeW, allRoomsData[mapLayout[i,j].x].sizeH };
+        { i - k%3, j - k/3, dataContainer.allRoomsData[mapLayout[i,j].x].sizeW, dataContainer.allRoomsData[mapLayout[i,j].x].sizeH };
 
         return res;
 	 }
@@ -414,7 +408,7 @@ public class MapGenerator : MonoBehaviour
 	private void Awake()
 	{
 		setReferences();
-        getRoomsData();
+        generateMapLayout();
     }
 
 	private void Update()
@@ -444,7 +438,7 @@ public class CustomMapGenerator : Editor
 		}
         
         if (GUILayout.Button("读取数据")) {
-            m_target.getRoomsData();
+            m_target.generateMapLayout();
 		}
         
         if (GUILayout.Button("生成单个房间")) {

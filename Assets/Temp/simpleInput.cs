@@ -48,6 +48,8 @@ public class simpleInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKey(KeyCode.J))
+            player.setWave();
         int move_direction=InputManager.getInstance().getMoveInput();
         switch (move_direction)
         {

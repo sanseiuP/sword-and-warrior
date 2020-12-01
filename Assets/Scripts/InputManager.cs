@@ -4,8 +4,8 @@ using UnityEngine;
 //邹凯韬、张志扬负责
 
 //监听用户输入
-public class InputManager : MonoBehaviour
-{
+public class InputManager
+{ 
     private static InputManager instance=null; //单例模式
 
 
