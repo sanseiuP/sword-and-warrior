@@ -30,6 +30,5 @@ public class EnemyGenerator : MonoBehaviour
         Instance = this;
         buildIndex();
         enemyGen("WaterSlime", 0, 0);
-        enemyGen("WaterSlime", 0, 1);
     }
 }

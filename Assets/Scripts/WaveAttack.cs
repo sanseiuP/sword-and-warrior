@@ -44,6 +44,10 @@ public class WaveAttack : Attack
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Debug.Log("玩家对敌人造成2点伤害");
+        Actor enemy = collision.GetComponent<Actor>();
+        if (enemy != null)
+        {
+            enemy.changeHealth(-damage);
+        }
     }
 }

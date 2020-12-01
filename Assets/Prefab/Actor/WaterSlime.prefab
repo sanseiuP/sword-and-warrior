@@ -146,8 +146,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad69c671efcf71e4eaf6b260154d0c2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  totalHP: 0
+  currentHP: 0
   speed: 3
   Footsteps: {fileID: 8300000, guid: d8fdc2e807ebc0244824ae1b2afc8f79, type: 3}
+  slider: {fileID: 7750457239570143496}
   target: {fileID: 0}
   nextWaypointDistance: 0.3
 --- !u!58 &8516743661024164832
@@ -329,6 +332,41 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8091532515007023227, guid: c6dd1b29aaa99e5478bf9589c66fe473,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.67058825
+      objectReference: {fileID: 0}
+    - target: {fileID: 8091532515007023227, guid: c6dd1b29aaa99e5478bf9589c66fe473,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.24313727
+      objectReference: {fileID: 0}
+    - target: {fileID: 8091532515007023227, guid: c6dd1b29aaa99e5478bf9589c66fe473,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.22352943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8091532516251465963, guid: c6dd1b29aaa99e5478bf9589c66fe473,
+        type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8091532516503566441, guid: c6dd1b29aaa99e5478bf9589c66fe473,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.19215688
+      objectReference: {fileID: 0}
+    - target: {fileID: 8091532516503566441, guid: c6dd1b29aaa99e5478bf9589c66fe473,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.19215688
+      objectReference: {fileID: 0}
+    - target: {fileID: 8091532516503566441, guid: c6dd1b29aaa99e5478bf9589c66fe473,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.19215688
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6dd1b29aaa99e5478bf9589c66fe473, type: 3}
 --- !u!224 &7750457239872340387 stripped
@@ -337,3 +375,15 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2001219156633854435}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7750457239570143496 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8091532516251465963, guid: c6dd1b29aaa99e5478bf9589c66fe473,
+    type: 3}
+  m_PrefabInstance: {fileID: 2001219156633854435}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

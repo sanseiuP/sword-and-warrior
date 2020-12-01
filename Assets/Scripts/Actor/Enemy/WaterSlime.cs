@@ -108,10 +108,6 @@ public class WaterSlime : Enemy
         {
             warrior.changeHealth(-1);
         }
-        else if (attack != null)
-        {
-            EncounterAttack(attack);
-        }
     }
 
     // Start is called before the first frame update
@@ -121,7 +117,9 @@ public class WaterSlime : Enemy
         waterSlimeanimator = GetComponent<Animator>();
         waterSlimeseeker = GetComponent<Seeker>();
         target = EnemyGenerator.Instance.target;
-        currentHP = 10;
+        totalHP = 10;
+        currentHP = totalHP;
+        slider.value = currentHP / totalHP;
         StartCoroutine(UpdatePath(waterSlimeseeker, waterSlimerigidbody));
 
         moving = false;
@@ -137,6 +135,7 @@ public class WaterSlime : Enemy
             waterSlimeanimator.SetBool("isDead", true);
             if (waterSlimeanimator.GetBool("shouldDie"))
             {
+                Debug.Log("a");
                 Destroy(this.gameObject);
             }
         }

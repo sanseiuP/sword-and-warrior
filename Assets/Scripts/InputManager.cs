@@ -26,7 +26,7 @@ private void Update() {
 		else if (v == 0) { 
 			if (h > 0) commandManager.addCommand(new Command_Move(0.0f));
 			else if (h < 0) commandManager.addCommand(new Command_Move(PI));
-			else Debug.Log("STOP");
+			//else Debug.Log("STOP");
 		}
 
 		//获取攻击

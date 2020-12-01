@@ -21,7 +21,7 @@ public class Enemy : Actor
     protected bool reachEndOfPath = false;
     Seeker enemyseeker;
     protected bool isFound = false;
-
+    
     Rigidbody2D enemyrigidbody;//人物刚体模型
     Animator enemyanimator;//控制动画相关
     public void SetMove(Animator animator, Rigidbody2D rigidbody)
@@ -170,9 +170,8 @@ public class Enemy : Actor
         enemyrigidbody = GetComponent<Rigidbody2D>();
         enemyanimator = GetComponent<Animator>();
         enemyseeker = GetComponent<Seeker>();
-
         StartCoroutine(UpdatePath(enemyseeker, enemyrigidbody));
-
+        
         moving = false;
         isFound = false;
         moveCounter = moveTime;

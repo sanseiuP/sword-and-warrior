@@ -2,12 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Actor : MonoBehaviour
 {
     //人物数据相关
     protected string name;
-    protected int totalHP, currentHP;
+    public int totalHP, currentHP;
     public float speed = 3f;
     protected bool isMoving = false;
     protected Vector2 lastMoveDirection;//上一次移动方向
@@ -22,7 +23,9 @@ public class Actor : MonoBehaviour
     protected Rigidbody2D rigidbody;//人物刚体模型
     protected Animator animator;//控制动画相关
     protected Attack attack;
-    
+
+    public Slider slider;
+
     #region 人物移动相关
     public void SetMove(float direction)//设置移动，方向由弧度制表示
     {
@@ -86,15 +89,23 @@ public class Actor : MonoBehaviour
     #endregion
 
     #region 改变生命值相关
+    IEnumerator BeRed()
+    {
+        this.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
+        yield return new WaitForSeconds(0.5f);
+        this.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
+    }
     public void changeHealth(int amount)
     {
-        if (currentHP + amount < totalHP)
+        if (currentHP + amount < 0)
         {
             Destroy(this.gameObject);
         }
         else
         {
             currentHP = Mathf.Clamp(currentHP + amount, 0, totalHP);
+            slider.value = (float)currentHP / totalHP;
+            StartCoroutine(BeRed());
         }
     }
     public void EncounterAttack(Attack attack)//受到攻击
@@ -112,7 +123,8 @@ public class Actor : MonoBehaviour
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
-        currentHP = 3;
+        totalHP = 10;
+        currentHP = totalHP;
     }
 
     // Update is called once per frame
