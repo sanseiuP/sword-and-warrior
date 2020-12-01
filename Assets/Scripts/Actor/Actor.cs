@@ -14,20 +14,20 @@ public class Actor : MonoBehaviour
     protected Vector2 moveDirection = new Vector2(0, 0);//移动方向
 
     //音频相关
-    AudioSource audioSource;
+    protected AudioSource audioSource;
     public AudioClip Footsteps;
 
-    
-    
 
-    Transform transform;//获取人物位置信息
-    Rigidbody2D rigidbody;//人物刚体模型
-    Animator animator;//控制动画相关
-    Attack attack;
+    protected Transform transform;//获取人物位置信息
+    protected Rigidbody2D rigidbody;//人物刚体模型
+    protected Animator animator;//控制动画相关
+    protected Attack attack;
     
     #region 人物移动相关
-    public void SetMove(float direction, Rigidbody2D rigidbody, Animator animator,AudioSource audioSource)//设置移动，方向由弧度制表示
+    public void SetMove(float direction)//设置移动，方向由弧度制表示
     {
+        if(isMoving)    return;
+        
         isMoving = true;
         moveDirection.x = (float)Math.Cos(direction);
         moveDirection.y = (float)Math.Sin(direction);
@@ -76,7 +76,7 @@ public class Actor : MonoBehaviour
         rigidbody.velocity = speed * moveDirection;//使人物朝移动方向每帧移动speed的长度
     }
 
-    public void SetStand(Rigidbody2D rigidbody, Animator animator, AudioSource audioSource)//设置人物静置
+    public void SetStand()//设置人物静置
     {
         moveDirection = Vector2.zero;
         rigidbody.velocity = Vector2.zero;
@@ -123,7 +123,7 @@ public class Actor : MonoBehaviour
             isMoving = false;
         }
         else
-            SetStand(rigidbody, animator, audioSource);
+            SetStand();
     }
     
 }

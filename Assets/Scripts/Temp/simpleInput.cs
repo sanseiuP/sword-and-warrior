@@ -35,7 +35,7 @@ public class simpleInput : MonoBehaviour
     }
     */
     // Start is called before the first frame update
-
+    /*
 
     void Start()
     {
@@ -90,6 +90,7 @@ public class simpleInput : MonoBehaviour
                 break;
         }
     }
+    */
 
 
 }

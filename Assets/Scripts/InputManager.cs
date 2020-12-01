@@ -1,37 +1,36 @@
 using System;
 using UnityEngine;
 
-//邹凯韬、张志扬负责
 
-//监听用户输入
-public class InputManager
+public class InputManager : MonoBehaviour
 {
-    private static InputManager instance=null; //单例模式
+public CommandManager commandManager;
 
+const float PI = 3.1415926f;
 
-    public static InputManager getInstance() //通过getInstance()函数访问实例
-    {
-        if (instance==null) instance=new InputManager();
-        return instance;
-    }
+private void Update() {
+		//获取移动
+		float h = Input.GetAxis("Horizontal");
+		float v = Input.GetAxis("Vertical");
 
-    public int getMoveInput()
-    {
-        int ismove=0b0000;
-        if (Input.GetKey(KeyCode.W)) ismove=ismove^0b1000;
-        if (Input.GetKey(KeyCode.A)) ismove=ismove^0b0100;
-        if (Input.GetKey(KeyCode.S)) ismove=ismove^0b0010;
-        if (Input.GetKey(KeyCode.D)) ismove=ismove^0b0001;
-        return ismove;
-    }
+		if (v > 0) { 
+			if (h > 0) commandManager.addCommand(new Command_Move(PI/4.0f));
+			else if (h == 0) commandManager.addCommand(new Command_Move(PI/2.0f));
+			else if (h < 0) commandManager.addCommand(new Command_Move(PI/4.0f*3.0f));
+		}
+		else if (v < 0) { 
+			if (h > 0) commandManager.addCommand(new Command_Move(-PI/4.0f));
+			else if (h == 0) commandManager.addCommand(new Command_Move(-PI/2.0f));
+			else if (h < 0) commandManager.addCommand(new Command_Move(-PI/4.0f*3.0f));
+		}
+		else if (v == 0) { 
+			if (h > 0) commandManager.addCommand(new Command_Move(0.0f));
+			else if (h < 0) commandManager.addCommand(new Command_Move(PI));
+			else Debug.Log("STOP");
+		}
 
-    public bool getAttackInput() //F键攻击，可以按着不放
-    {
-        return Input.GetKey(KeyCode.F)||Input.GetKeyDown(KeyCode.F);
-    }
-
-    public bool getSwapWeaponInput() //按下G键捡地上的武器
-    {
-        return Input.GetKeyDown(KeyCode.G);
-    }
+		//获取攻击
+		if (Input.GetAxis("Fire1") != 0)
+			commandManager.addCommand(new Command_Wave());
+	}
 }

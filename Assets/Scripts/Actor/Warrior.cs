@@ -13,10 +13,6 @@ public class Warrior : Actor
     private Item mainWeapon;
     private Item asistWeapon;
 
-    Transform transform;
-    Rigidbody2D rigidbody;
-    Animator animator;
-    AudioSource audioSource;
     WaveAttack waveattack;
     #region 生命值相关
     public void encounterAttack(Attack attack)//受到攻击
@@ -132,7 +128,7 @@ public class Warrior : Actor
             isMoving = false;
         }
         else
-            SetStand(rigidbody, animator,audioSource);
+            SetStand();
         CountInvincible();
     }
 }
