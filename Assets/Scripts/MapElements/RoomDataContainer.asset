@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: eec1b06bcecaf0940a19014874fe8b52, type: 3}
   m_Name: RoomDataContainer
   m_EditorClassIdentifier: Assembly-CSharp::RoomDataContainer
   allRoomsData:

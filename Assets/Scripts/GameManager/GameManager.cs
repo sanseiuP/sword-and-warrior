@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public GameObject cam;
 
     /*用于生成房间的参数*/
-    public int sizeW = 5, sizeH = 5, area = 10;
+    public int sizeW , sizeH, area;
 
     /*房间的状态数据*/
     public enum RoomState { Unexplored, Conquered, Conquering }; //未探索的，已被征服，征服中

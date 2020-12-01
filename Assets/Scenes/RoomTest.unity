@@ -277,7 +277,7 @@ MonoBehaviour:
   m_Follow: {fileID: 1422073992}
   m_Lens:
     FieldOfView: 20
-    OrthographicSize: 3.73
+    OrthographicSize: 6
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
@@ -13791,7 +13791,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< Updated upstream
 --- !u!1 &670469745
 GameObject:
   m_ObjectHideFlags: 0
@@ -13978,8 +13977,6 @@ MonoBehaviour:
   Footsteps: {fileID: 8300000, guid: d8fdc2e807ebc0244824ae1b2afc8f79, type: 3}
   target: {fileID: 880007677}
   nextWaypointDistance: 0.6
-=======
->>>>>>> Stashed changes
 --- !u!1 &743550462
 GameObject:
   m_ObjectHideFlags: 0
@@ -14011,7 +14008,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAABAIezLz0tVegIAACEFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVE1z2jAQ/SuMzoURtgG7t9YhpId8TEgnF1+ELGMNsuSR5ADJ8N+7km3s0BPL28/3duUvxKWpGbVKbzTPH1XO0M8Jcjb6MRmcD+xE9kpu+SfrY955bksXRHzMK7FcAT53aUZVzGpOf8m9cMEYwEbyQulqne9Zqow1ABdEGAYurazLlgB9TdAJfqaJSzmDFayc9QlWgicXMCmTlukhNJrPgihJ4mjVZYTxbAlAEiZd4jSaRSuM4yhM1lMc+yqNpIJUNcsdpaFY3LeNAx8mgWwXgWcL110JwU03K7Ln2muRkto0wBQCck6Aux/QSVEyvi+t4zFOfi4Kw2wnjCbnO65BwrYq+q1aXStiDu1kH0Q0rk+wWPqp2qKP//mnc+8utKoe+r5z7HrYktPDKzlTYuxI+DF8933wRh6JOJCdYO8lk09qo1Ujc3Ba3bjUxrDgbvh7pZaWjB4GvB31BmzqQfHrnmdhHM3jZbiEHa36zQGhi5filApe7fwaohbYCuXF95fCNCzqD0zv78h0dQF1I/017I3sxwfXOe65NhZcHWXpZt2pRrtQtPYCOmqNTZWWzMMdg5pJIuz5BcrY233e+EZtbzz3xD2trnnn61/MTYqHh3iMb1wv6njdnCnV8ZGZ8rmxgks2DO0cT6BTqqRsz22sSZ+2bXRB6Cht3/D8+52hRRjEeBcVBcN0SQs8LZIgJMuQ0ngxxxGOkD9ELoEnES/toJ08sDU5FJdwdP0XZ7LRpPann2ty3PDPSo0k57JQW6oZk89thevgTEMTeKT5Oucg0JZZy6XfN/rKkFD0wPLsWijzTNcnq0k2VMlQzT+UdUiGUv+JydAFXf4BUEsDBBQAAAgIAABAIexUSZ3AbQAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM01VFQSi9KLMgoBooYgjilmSkgdrSSqbGRhUGSSVpaqkGyWXKagW6apZFxoplxcrKFqaGBiYGJUixQfUllQapfYm4qRE9AYklGWmZeSmZeup57UWaKO8hopdhaAFBLAQItABQAAAgIAABAIezLz0tVegIAACEFAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAABAIexUSZ3AbQAAAHgAAAAJACQAAAAAAAAAAAAAAMcCAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAfwMAAAAA
+    dataString: UEsDBBQAAAgIAABAIewxzEEpbgIAABMFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVE1z2jAQ/SuMzoWxjTHQW+sQ0kM+JqSTiy9CXmMNsuSR5ADJ8N+7kg126IllP997u/IX4dLUwKzSa83zR5UD+TkiziY/Rn3wAY50p+SGf8Il553ntnRJ1Oe8UssV+kNXZlQFVnP2S+6ESw7Q2UheKF2t8h2kyliD7oIKAxjSyrpqia6vETniz3jpSk5oRXNnfaK1DEZnNBlIC7pPTeLJMlxE8y4/mU7CKJgt54uurK1qJBO0qiF3FPriML7MQcsnSqTX5QSTmZunhOCmQ0fsqfbsU1qbBrlhQs4psvWQHPkS+K60Dvmw+LkoDNhOCk1Pd1yjaG1X8lu1SlbU7FtsH1Q0bk40Szyqtunjf/Fx6MOFVtXDZW4YuBm25Gz/Sk+MGjuQeui++w68kQcq9nQr4L0E+aTWWjUyx6DVjSttDER3/d8rtbQEtu/9LdQbZ1P3ml83O5ku4nCRTJPVOJh323KEzl6KYyp4tfVriFvHRigvvr8N0LioP4jeX47p+qLXQfpr4I3uhifWBe65NhZDHWXpsG5Vo10qWXkBHbXGpkpL8O6OQQ2SCnt6wTb2dp83scHYm8g9dY+pG97FLm/kpsS7+/wguAm9qMN1c6ZUh0cw5XNjBZfQg3aBJ9QpVVK25zbU5FK2aXRB2aBs1/D8+52R2TRaBNu4KCBgCSuCcbGMpjSZMraYhUEcxMQfIpfIk4qXFmgnD25N9s0lHt3lGzNaa1r70881Paz5Z6UGknNZqA3TAPK57XAFDhqH4CPNVzlHgTZgLZd+3+QrI0KxPeTZtVHmma6OVtOs75KRmn8o6zwZSf1HJSNncv4HUEsDBBQAAAgIAABAIexUSZ3AbQAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM01VFQSi9KLMgoBooYgjilmSkgdrSSqbGRhUGSSVpaqkGyWXKagW6apZFxoplxcrKFqaGBiYGJUixQfUllQapfYm4qRE9AYklGWmZeSmZeup57UWaKO8hopdhaAFBLAQItABQAAAgIAABAIewxzEEpbgIAABMFAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAABAIexUSZ3AbQAAAHgAAAAJACQAAAAAAAAAAAAAALsCAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAcwMAAAAA
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -18338,9 +18335,9 @@ MonoBehaviour:
   map: {fileID: 1010890347}
   warrior: {fileID: 880007671}
   cam: {fileID: 1832628132}
-  sizeW: 5
-  sizeH: 5
-  area: 10
+  sizeW: 8
+  sizeH: 8
+  area: 20
 --- !u!4 &991710102
 Transform:
   m_ObjectHideFlags: 0
@@ -18403,6 +18400,7 @@ MonoBehaviour:
   prefab_door_right: {fileID: 8997113559839381071, guid: 469c90e2359adbf47baa75082abb4a23,
     type: 3}
   Convertor: {fileID: 11400000, guid: 4ee609b707a66874c94c75b81bbbe15d, type: 2}
+  dataContainer: {fileID: 11400000, guid: 08829da627af40144a07746980677e9a, type: 2}
 --- !u!156049354 &1010890350
 Grid:
   m_ObjectHideFlags: 0
@@ -18634,7 +18632,7 @@ Tilemap:
     m_Data: {r: 7.6784363, g: 7.6784363, b: 7.6784363, a: 7.6784363}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0.7607844, g: 0.7607844, b: 0.7607844, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_Origin: {x: -7, y: -8, z: 0}
   m_Size: {x: 45, y: 40, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -18764,7 +18762,7 @@ Camera:
   far clip plane: 5000
   field of view: 20
   orthographic: 1
-  orthographic size: 3.73
+  orthographic size: 6
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
