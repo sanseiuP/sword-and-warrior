@@ -29,6 +29,12 @@ public class Actor : MonoBehaviour
     #region 人物移动相关
     public void SetMove(float direction)//设置移动，方向由弧度制表示
     {
+
+        if (isAttacking)
+        {
+            speed = 0;
+        }
+        else speed = 3f;
         if(isMoving)    return;
         
         isMoving = true;
@@ -81,6 +87,7 @@ public class Actor : MonoBehaviour
 
     public void SetStand()//设置人物静置
     {
+        if (isAttacking) return;
         moveDirection = Vector2.zero;
         rigidbody.velocity = Vector2.zero;
         animator.SetBool("isMoving", false);

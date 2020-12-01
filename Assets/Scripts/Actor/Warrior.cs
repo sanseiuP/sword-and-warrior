@@ -12,7 +12,7 @@ public class Warrior : Actor
     private int money;
     private Item mainWeapon;
     private Item asistWeapon;
-
+    public float waveTime;
     WaveAttack waveattack;
     #region 生命值相关
     public void encounterAttack(Attack attack)//受到攻击
@@ -70,6 +70,7 @@ public class Warrior : Actor
     #region 近战攻击相关
     public void setWave()
     {
+        isAttacking = true;
         if (lastMoveDirection.x == 0 && lastMoveDirection.y == 0)
         {
             animator.SetTrigger("Wave_Down");
@@ -106,6 +107,12 @@ public class Warrior : Actor
                 waveattack.Attack();
             }
         }
+        StartCoroutine(waitForWaveTime());
+    }
+    IEnumerator waitForWaveTime()
+    {
+        yield return new WaitForSeconds(waveTime);
+        isAttacking = false;
     }
     #endregion
     // Start is called before the first frame update
