@@ -13,6 +13,7 @@ public class RoomDataManager : MonoBehaviour
     [SerializeField]
     public RoomData[] data;
     public GameObject[] rooms = new GameObject[0];
+    public RoomDataContainer dataContainer;
 
     public void generateData() {
         data = new RoomData[rooms.Length];
@@ -20,13 +21,7 @@ public class RoomDataManager : MonoBehaviour
             rooms[i].GetComponent<RoomDataGenerator>().setData();
             data[i] = rooms[i].GetComponent<RoomDataGenerator>().data;
 
-        BinaryFormatter bf = new BinaryFormatter();
-
-        FileStream fs = File.Create(Application.persistentDataPath + "SAW_RoomData.txt");
-
-        bf.Serialize(fs,data);
-
-        fs.Close();
+        dataContainer.allRoomsData = data;
 
         Debug.Log("数据已生成");
 		}

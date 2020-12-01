@@ -4,15 +4,28 @@ using UnityEngine;
 
 public class EnemyGenerator : MonoBehaviour
 {
+    public static EnemyGenerator Instance { get; private set; }
+
+    public GameObject WaterSlime;
+    public GameObject target;
+
+    private Hashtable enemyIndex = new Hashtable();
+
+    private void buildIndex()
+    {
+        enemyIndex.Add("WaterSlime", WaterSlime);
+    }
     public void enemyGen(string name, float xpos, float ypos)
     {
         Vector2 genPos = new Vector2(xpos, ypos);
-        Object genEnemy = GameObject.Find(name);
-        Object gen = Instantiate(genEnemy, genPos, Quaternion.identity);
+        Object genEnemy = (Object)enemyIndex[name];
+        Instantiate(genEnemy, genPos, Quaternion.identity);
     }
 
-    private void Start()
+     void Awake()
     {
+        Instance = this;
+        buildIndex();
         enemyGen("WaterSlime", 0, 0);
     }
 }

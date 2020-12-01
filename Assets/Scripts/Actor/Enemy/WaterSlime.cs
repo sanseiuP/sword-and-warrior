@@ -103,9 +103,14 @@ public class WaterSlime : Enemy
     private void OnTriggerEnter2D(Collider2D other)
     {
         Warrior warrior = other.gameObject.GetComponent<Warrior>();
+        WaveAttack attack = other.gameObject.GetComponent<WaveAttack>();
         if (warrior != null)
         {
             warrior.changeHealth(-1);
+        }
+        else if (attack != null)
+        {
+            EncounterAttack(attack);
         }
     }
 
@@ -115,7 +120,8 @@ public class WaterSlime : Enemy
         waterSlimerigidbody = GetComponent<Rigidbody2D>();
         waterSlimeanimator = GetComponent<Animator>();
         waterSlimeseeker = GetComponent<Seeker>();
-
+        target = EnemyGenerator.Instance.target;
+        currentHP = 10;
         StartCoroutine(UpdatePath(waterSlimeseeker, waterSlimerigidbody));
 
         moving = false;
@@ -126,6 +132,10 @@ public class WaterSlime : Enemy
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (currentHP <= 0)
+        {
+            Destroy(this.gameObject);
+        }
         if (!isFound)
         {
             MoveControl(waterSlimeanimator, waterSlimerigidbody);
