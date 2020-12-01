@@ -14,6 +14,7 @@ public class Warrior : Actor
     private Item asistWeapon;
     public float waveTime;
     WaveAttack waveattack;
+    private int countAttack;
     #region 生命值相关
     public void encounterAttack(Attack attack)//受到攻击
     {
@@ -70,6 +71,8 @@ public class Warrior : Actor
     #region 近战攻击相关
     public void setWave()
     {
+        countAttack++;
+        Debug.Log(countAttack);
         isAttacking = true;
         if (lastMoveDirection.x == 0 && lastMoveDirection.y == 0)
         {

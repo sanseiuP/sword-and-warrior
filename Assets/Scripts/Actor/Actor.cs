@@ -26,6 +26,7 @@ public class Actor : MonoBehaviour
 
     public Slider slider;
 
+    protected bool isAttacking=false;
     #region 人物移动相关
     public void SetMove(float direction)//设置移动，方向由弧度制表示
     {
