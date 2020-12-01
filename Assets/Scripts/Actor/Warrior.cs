@@ -17,7 +17,7 @@ public class Warrior : Actor
     Rigidbody2D rigidbody;
     Animator animator;
     AudioSource audioSource;
-
+    WaveAttack waveattack;
     #region 生命值相关
     public void encounterAttack(Attack attack)//受到攻击
     {
@@ -71,6 +71,47 @@ public class Warrior : Actor
     }
     #endregion
 
+    #region 近战攻击相关
+    public void setWave()
+    {
+        if (lastMoveDirection.x == 0 && lastMoveDirection.y == 0)
+        {
+            animator.SetTrigger("Wave_Down");
+            waveattack = GameObject.FindGameObjectWithTag("hitBox_Down").GetComponent<WaveAttack>();
+            waveattack.Attack();
+        }
+        else if (Math.Abs(lastMoveDirection.x) > Math.Abs(lastMoveDirection.y))
+        {
+            if (lastMoveDirection.x > 0)
+            {
+                animator.SetTrigger("Wave_Right");
+                waveattack = GameObject.FindGameObjectWithTag("hitBox_Right").GetComponent<WaveAttack>();
+                waveattack.Attack();
+            }
+            else if (lastMoveDirection.x < 0)
+            {
+                animator.SetTrigger("Wave_Left");
+                waveattack = GameObject.FindGameObjectWithTag("hitBox_Left").GetComponent<WaveAttack>();
+                waveattack.Attack();
+            }
+        }
+        else if (Math.Abs(lastMoveDirection.x) < Math.Abs(lastMoveDirection.y))
+        {
+            if (lastMoveDirection.y > 0)
+            {
+                animator.SetTrigger("Wave_Up");
+                waveattack = GameObject.FindGameObjectWithTag("hitBox_Up").GetComponent<WaveAttack>();
+                waveattack.Attack();
+            }
+            else if (lastMoveDirection.y < 0)
+            {
+                animator.SetTrigger("Wave_Down");
+                waveattack = GameObject.FindWithTag("hitBox_Down").GetComponent<WaveAttack>();
+                waveattack.Attack();
+            }
+        }
+    }
+    #endregion
     // Start is called before the first frame update
     void Start()
     {
@@ -91,7 +132,7 @@ public class Warrior : Actor
             isMoving = false;
         }
         else
-            SetStand();
+            SetStand(rigidbody, animator,audioSource);
         CountInvincible();
     }
 }
